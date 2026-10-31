@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#2A1F1A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Swipe de Stil">
+<link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoiU3dpcGUgZGUgU3RpbCIsInNob3J0X25hbWUiOiJTd2lwZSBkZSBTdGlsIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJzdGFydF91cmwiOiIuIiwiYmFja2dyb3VuZF9jb2xvciI6IiNGOUY2RUYiLCJ0aGVtZV9jb2xvciI6IiMyQTFGMUEifQ==">
+<title>Swipe de Stil — Renovare Rezolvată</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#2A1F1A; --cream:#F9F6EF; --card:#FFFFFF; --terracotta:#B2693F;
+  --terracotta-d:#8C4F2C; --soft:#75665B; --line:rgba(42,31,26,.12);
+  --like:#5D8A6C; --nope:#B2493F;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;padding:0;background:var(--cream);color:var(--ink);
+  font-family:'DM Sans',system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right);
+}
+h1,h2,h3{font-family:'Playfair Display',Georgia,serif;margin:0;line-height:1.1}
+p{margin:0}
+.wrap{max-width:520px;margin:0 auto;padding:0 0 calc(40px + env(safe-area-inset-bottom))}
+.top{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--line);background:var(--cream);position:sticky;top:0;z-index:20}
+.brand{display:flex;align-items:center;gap:10px}
+.brand .mark{width:34px;height:34px;border-radius:50%;background:var(--ink);color:var(--cream);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700}
+.brand small{display:block;color:var(--soft);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+.brand strong{font-family:'Playfair Display',serif;font-size:16px}
+.counter{font-size:12px;color:var(--soft);font-weight:600;letter-spacing:.04em}
+
+/* ---- INTRO ---- */
+.intro{padding:28px 22px 10px;text-align:center}
+.kicker{display:inline-block;color:var(--terracotta-d);font-weight:700;font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:6px 13px;border:1px solid var(--line);border-radius:100px;margin-bottom:16px}
+.intro h1{font-size:clamp(28px,7vw,36px);margin-bottom:12px}
+.intro h1 em{font-style:italic;color:var(--terracotta-d)}
+.intro p{color:var(--soft);font-size:15px;line-height:1.6;max-width:38ch;margin:0 auto}
+.start-btn{display:block;width:calc(100% - 44px);margin:22px auto 0;padding:17px;border:0;border-radius:14px;background:var(--ink);color:var(--cream);font-family:'DM Sans',sans-serif;font-weight:700;font-size:16px;letter-spacing:.02em;cursor:pointer}
+.start-btn:active{transform:translateY(1px)}
+.hint{margin-top:14px;font-size:12px;color:var(--soft)}
+
+/* ---- DECK ---- */
+.deck-screen{display:none;padding:18px 16px 0}
+.deck-wrap{position:relative;max-width:420px;margin:0 auto;height:min(72vh,560px)}
+.card{
+  position:absolute;inset:0;border-radius:26px;overflow:hidden;background:var(--card);
+  box-shadow:0 30px 60px -20px rgba(42,31,26,.35);border:1px solid var(--line);
+  touch-action:none;will-change:transform;user-select:none;-webkit-user-select:none;
+}
+.card img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;-webkit-user-drag:none}
+.card .stamp{position:absolute;top:26px;padding:8px 16px;border:3px solid;border-radius:10px;font-weight:800;font-size:22px;letter-spacing:.06em;text-transform:uppercase;opacity:0;transform:rotate(-14deg)}
+.card .stamp.like{left:22px;color:var(--like);border-color:var(--like)}
+.card .stamp.nope{right:22px;color:var(--nope);border-color:var(--nope);transform:rotate(14deg)}
+.progress{display:flex;gap:4px;max-width:420px;margin:14px auto 0}
+.progress i{flex:1;height:4px;border-radius:99px;background:var(--line)}
+.progress i.done{background:var(--terracotta)}
+.btn-row{display:flex;justify-content:center;gap:22px;margin-top:22px}
+.round-btn{width:60px;height:60px;border-radius:50%;border:1px solid var(--line);background:var(--card);box-shadow:0 10px 24px -10px rgba(42,31,26,.25);display:flex;align-items:center;justify-content:center;font-size:26px;cursor:pointer}
+.round-btn.nope{color:var(--nope)}
+.round-btn.like{color:var(--like)}
+.round-btn:active{transform:scale(.94)}
+.swipe-caption{text-align:center;color:var(--soft);font-size:13px;margin-top:16px}
+
+/* ---- RESULT ---- */
+.result-screen{display:none;padding:26px 20px 0}
+.result-tag{text-align:center;color:var(--terracotta-d);font-weight:700;font-size:11px;letter-spacing:.2em;text-transform:uppercase}
+.result-screen h2{text-align:center;font-size:clamp(30px,8vw,42px);margin:10px 0 6px}
+.result-desc{text-align:center;color:var(--soft);font-size:15px;line-height:1.65;max-width:36ch;margin:0 auto 22px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;max-width:600px;margin:0 auto}
+.gallery figure{margin:0;border-radius:16px;overflow:hidden;position:relative;aspect-ratio:3/4;background:var(--line)}
+.gallery img{width:100%;height:100%;object-fit:cover;display:block}
+.gallery figcaption{position:absolute;left:0;right:0;bottom:0;padding:8px 10px;background:linear-gradient(0deg,rgba(42,31,26,.75),transparent);color:#fff;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.save-box{margin:26px auto 0;max-width:460px;padding:20px;border-radius:18px;background:var(--ink);color:var(--cream);text-align:center}
+.save-box p{font-size:13px;color:#D8CFC5;margin-bottom:12px}
+.save-btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 24px;border-radius:12px;background:var(--terracotta);color:#fff;font-weight:700;border:0;cursor:pointer;font-size:14px}
+.saved-note{display:none;margin-top:10px;font-size:12px;color:#B7E0C2}
+.redo{display:block;text-align:center;margin:18px auto 0;color:var(--soft);font-size:13px;text-decoration:underline;background:none;border:0;cursor:pointer}
+.foot{margin-top:30px;padding:0 20px;text-align:center;color:var(--soft);font-size:11px;line-height:1.6}
+@media (min-width:600px){.wrap{max-width:600px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="brand">
+      <div class="mark">S</div>
+      <div>
+        <strong>Swipe de Stil</strong>
+        <small>Renovare Rezolvată</small>
+      </div>
+    </div>
+    <div class="counter" id="topCounter"></div>
+  </div>
+
+  <!-- INTRO -->
+  <section class="intro" id="screenIntro">
+    <span class="kicker">Găsește-ți stilul</span>
+    <h1>Stilul perfect al <em>casei tale</em>,<br>găsit în 60 de secunde</h1>
+    <p>Deslizi stânga sau dreapta prin 20 de imagini reale. La final afli exact ce stil ți se potrivește — și o galerie cu combinațiile potrivite, pentru fiecare cameră din casă.</p>
+    <button class="start-btn" id="startBtn">Începe — îmi place / nu îmi place →</button>
+    <p class="hint">Fără cont, fără research. Datele rămân pe dispozitivul tău.</p>
+  </section>
+
+  <!-- DECK -->
+  <section class="deck-screen" id="screenDeck">
+    <div class="deck-wrap" id="deckWrap"></div>
+    <div class="progress" id="progressBar"></div>
+    <div class="btn-row">
+      <button class="round-btn nope" id="btnNope" aria-label="Nu îmi place">✕</button>
+      <button class="round-btn like" id="btnLike" aria-label="Îmi place">♥</button>
+    </div>
+    <p class="swipe-caption">Deslizi cardul sau apeși butoanele</p>
+  </section>
+
+  <!-- RESULT -->
+  <section class="result-screen" id="screenResult">
+    <p class="result-tag">Stilul tău este</p>
+    <h2 id="resultTitle"></h2>
+    <p class="result-desc" id="resultDesc"></p>
+    <div class="gallery" id="resultGallery"></div>
+    <div class="save-box">
+      <p>Salvează-ți profilul de stil pe acest dispozitiv, ca să-l revezi oricând.</p>
+      <button class="save-btn" id="saveBtn">Salvează profilul meu →</button>
+      <p class="saved-note" id="savedNote">✓ Salvat pe acest dispozitiv.</p>
+    </div>
+    <button class="redo" id="redoBtn">Refă testul de la zero</button>
+    <p class="foot">Renovare Rezolvată · Swipe de Stil — rezultatul rămâne în browserul tău.</p>
+  </section>
+
+</div>
+
+<script>
+(() => {
+'use strict';
+
+const AMBIENTE = ['bucatarie','baie','living','dormitor'];
+const STILURI = {
+  'minimalist-cald': {
+    nume: 'Minimalist Cald',
+    desc: 'Îți plac liniile curate, lemnul deschis și lumina naturală. Nu ai nevoie de multe obiecte — ai nevoie ca fiecare obiect să conteze cu adevărat.'
+  },
+  'rustic-modern': {
+    nume: 'Rustic Modern',
+    desc: 'Textura lemnului, tonurile calde de teracotă și materialele naturale te atrag. Vrei o casă care pare trăită și autentică, nu scoasă dintr-un catalog.'
+  },
+  'scandinav': {
+    nume: 'Scandinav',
+    desc: 'Lemn deschis, alb, pastel și funcționalitate fără aglomerare. Cauți lumină, simplitate și o atmosferă primitoare în fiecare cameră.'
+  },
+  'clasic-elegant': {
+    nume: 'Clasic Elegant',
+    desc: 'Simetrie, tonuri profunde și mobilier cu caracter te reprezintă. Vrei o casă care arată intenționat, cu rafinament, nu la întâmplare.'
+  },
+  'industrial': {
+    nume: 'Industrial',
+    desc: 'Cărămidă aparentă, metal negru și o paletă întunecată te atrag. Vrei o casă cu personalitate reală, nu o casă perfectă și impersonală.'
+  }
+};
+const AMBIENTE_LABEL = {bucatarie:'Bucătărie', baie:'Baie', living:'Living', dormitor:'Dormitor'};
+
+let deck = [];
+let idx = 0;
+let scores = {};
+let current = {x:0,y:0,startX:0,startY:0,dragging:false};
+
+function buildDeck(){
+  deck = [];
+  for (const amb of AMBIENTE){
+    for (const st of Object.keys(STILURI)){
+      deck.push({amb, st, src: `${amb}__${st}.webp`});
+    }
+  }
+  // shuffle
+  for (let i = deck.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [deck[i], deck[j]] = [deck[j], deck[i]];
+  }
+  idx = 0;
+  scores = {}; for (const s of Object.keys(STILURI)) scores[s] = 0;
+}
+
+function el(tag, cls){ const e = document.createElement(tag); if (cls) e.className = cls; return e; }
+
+function renderProgress(){
+  const bar = document.getElementById('progressBar');
+  bar.innerHTML = '';
+  deck.forEach((_, i) => {
+    const i2 = el('i');
+    if (i < idx) i2.classList.add('done');
+    bar.appendChild(i2);
+  });
+}
+
+function renderTopCounter(){
+  document.getElementById('topCounter').textContent = idx < deck.length ? `${idx + 1} / ${deck.length}` : '';
+}
+
+function renderDeck(){
+  const wrap = document.getElementById('deckWrap');
+  wrap.innerHTML = '';
+  // mostramos hasta 3 cartas apiladas para profundidad visual
+  const visible = deck.slice(idx, idx + 3);
+  visible.forEach((item, i) => {
+    const card = el('div', 'card');
+    const depth = visible.length - 1 - i;
+    card.style.zIndex = String(10 - i);
+    card.style.transform = `translateY(${depth * 10}px) scale(${1 - depth * 0.035})`;
+    card.style.opacity = depth > 2 ? '0' : '1';
+    const img = document.createElement('img');
+    img.src = item.src;
+    img.alt = `${AMBIENTE_LABEL[item.amb]} — stil`;
+    img.loading = i === 0 ? 'eager' : 'lazy';
+    card.appendChild(img);
+    const stampLike = el('div', 'stamp like'); stampLike.textContent = 'ÎMI PLACE';
+    const stampNope = el('div', 'stamp nope'); stampNope.textContent = 'NU';
+    card.appendChild(stampLike); card.appendChild(stampNope);
+    if (i === 0){
+      attachDrag(card, stampLike, stampNope, item);
+    }
+    wrap.prepend(card);
+  });
+  renderProgress();
+  renderTopCounter();
+  if (idx >= deck.length) showResult();
+}
+
+function attachDrag(card, stampLike, stampNope, item){
+  const onStart = (x, y) => { current = {x:0, y:0, startX:x, startY:y, dragging:true}; };
+  const onMove = (x, y) => {
+    if (!current.dragging) return;
+    current.x = x - current.startX;
+    current.y = y - current.startY;
+    const rot = current.x / 14;
+    card.style.transform = `translate(${current.x}px, ${current.y}px) rotate(${rot}deg)`;
+    const ratio = Math.min(Math.abs(current.x) / 110, 1);
+    if (current.x > 0){ stampLike.style.opacity = String(ratio); stampNope.style.opacity = '0'; }
+    else { stampNope.style.opacity = String(ratio); stampLike.style.opacity = '0'; }
+  };
+  const onEnd = () => {
+    if (!current.dragging) return;
+    current.dragging = false;
+    const threshold = 100;
+    if (Math.abs(current.x) > threshold){
+      decide(current.x > 0, item, card);
+    } else {
+      card.style.transition = 'transform .25s ease';
+      card.style.transform = 'translate(0,0) rotate(0)';
+      stampLike.style.opacity = '0'; stampNope.style.opacity = '0';
+      setTimeout(() => { card.style.transition = ''; }, 260);
+    }
+  };
+  card.addEventListener('pointerdown', (e) => { card.setPointerCapture(e.pointerId); onStart(e.clientX, e.clientY); });
+  card.addEventListener('pointermove', (e) => { onMove(e.clientX, e.clientY); });
+  card.addEventListener('pointerup', onEnd);
+  card.addEventListener('pointercancel', onEnd);
+  card._decideFromButton = (liked) => decide(liked, item, card);
+}
+
+function decide(liked, item, card){
+  if (liked) scores[item.st] = (scores[item.st] || 0) + 1;
+  const flyX = liked ? window.innerWidth : -window.innerWidth;
+  card.style.transition = 'transform .35s ease, opacity .35s ease';
+  card.style.transform = `translate(${flyX}px, ${current.y || 0}px) rotate(${liked ? 24 : -24}deg)`;
+  card.style.opacity = '0';
+  idx++;
+  setTimeout(renderDeck, 220);
+}
+
+document.getElementById('btnNope').addEventListener('click', () => {
+  const top = document.querySelector('.deck-wrap .card:last-child');
+  if (top && top._decideFromButton) top._decideFromButton(false);
+});
+document.getElementById('btnLike').addEventListener('click', () => {
+  const top = document.querySelector('.deck-wrap .card:last-child');
+  if (top && top._decideFromButton) top._decideFromButton(true);
+});
+
+function showResult(){
+  document.getElementById('screenDeck').style.display = 'none';
+  const winner = Object.keys(scores).sort((a,b) => scores[b] - scores[a])[0];
+  const data = STILURI[winner];
+  document.getElementById('resultTitle').textContent = data.nume;
+  document.getElementById('resultDesc').textContent = data.desc;
+  const gallery = document.getElementById('resultGallery');
+  gallery.innerHTML = '';
+  AMBIENTE.forEach(amb => {
+    const fig = document.createElement('figure');
+    const img = document.createElement('img');
+    img.src = `${amb}__${winner}.webp`;
+    img.alt = `${AMBIENTE_LABEL[amb]} — ${data.nume}`;
+    img.loading = 'lazy';
+    const cap = document.createElement('figcaption');
+    cap.textContent = AMBIENTE_LABEL[amb];
+    fig.appendChild(img); fig.appendChild(cap);
+    gallery.appendChild(fig);
+  });
+  document.getElementById('screenResult').style.display = 'block';
+  document.getElementById('topCounter').textContent = '';
+  try {
+    const payload = {stil: winner, nume: data.nume, scor: scores, data: Date.now()};
+    localStorage.setItem('renovare-swipe-stil:ultim-rezultat', JSON.stringify(payload));
+  } catch(_) {}
+}
+
+document.getElementById('saveBtn').addEventListener('click', () => {
+  document.getElementById('savedNote').style.display = 'block';
+});
+
+document.getElementById('redoBtn').addEventListener('click', () => {
+  document.getElementById('screenResult').style.display = 'none';
+  document.getElementById('screenIntro').style.display = 'block';
+});
+
+document.getElementById('startBtn').addEventListener('click', () => {
+  buildDeck();
+  document.getElementById('screenIntro').style.display = 'none';
+  document.getElementById('screenDeck').style.display = 'block';
+  renderDeck();
+});
+})();
+</script>
+</body>
+</html>
