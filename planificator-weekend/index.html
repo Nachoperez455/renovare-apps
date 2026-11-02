@@ -323,7 +323,7 @@ function buildPlan(){
   });
   groups.sort((a,b) => b.load-a.load);
   const trackCount = state.people===2 ? 2 : 1;
-  const tracks = Array.from({length:trackCount}, () => ({ items:[], load:0 }));
+  const tracks = Array.from({length:trackCount}, () => ({ items:[], load:0, surfaceBusy:{} }));
   groups.forEach(g => {
     const t = tracks.reduce((min,t) => t.load<min.load ? t : min, tracks[0]);
     g.items.forEach(x => t.items.push({ x, phaseIdx:0, readyAt:0, placed:[] }));
@@ -341,18 +341,25 @@ function buildPlan(){
       let progressed = true;
       while (cursor < wEnd && progressed) {
         progressed = false;
-        // procesează instant toate fazele de uscare ajunse la rând (nu consumă cursor)
+        // procesează instant toate fazele de uscare ajunse la rând (nu consumă cursor) —
+        // ȘI marchează suprafața ei ca ocupată până la readyAt, ca nicio ALTĂ
+        // transformare de pe aceeași suprafață să nu se intercaleze în acel interval
+        // (a fi pe același track evită doar munca simultană a persoanei, nu și
+        // succesiunea invalidă pe aceeași suprafață — bug real găsit: montat rafturi
+        // intercalat în timp ce vopseaua de pe același perete încă se usca).
         track.items.forEach(it => {
           while (it.phaseIdx < it.x.phases.length && it.x.phases[it.phaseIdx].type==='uscare') {
             const ph = it.x.phases[it.phaseIdx];
             const dur = phaseMin(it.x, ph);
             it.placed.push({ phase:ph, x:it.x, start:it.readyAt, end:it.readyAt+dur, absolute:true });
             it.readyAt = it.readyAt + dur;
+            surfacesOf(it.x).forEach(s => { track.surfaceBusy[s] = { until: it.readyAt, owner: it }; });
             it.phaseIdx++;
             progressed = true;
           }
         });
         // alege faza activă READY cu cel mai mic readyAt care încape în fereastra curentă
+        // ȘI a cărei suprafață nu e ocupată de uscarea altei transformări
         let best = null;
         track.items.forEach(it => {
           if (it.phaseIdx >= it.x.phases.length) return;
@@ -361,6 +368,11 @@ function buildPlan(){
           const startAt = Math.max(cursor, it.readyAt);
           const dur = phaseMin(it.x, ph);
           if (startAt + dur > wEnd) return; // nu încape în fereastra asta
+          const blocked = surfacesOf(it.x).some(s => {
+            const busy = track.surfaceBusy[s];
+            return busy && busy.owner !== it && startAt < busy.until;
+          });
+          if (blocked) return; // suprafața e ocupată de uscarea altei transformări
           if (!best || startAt < best.startAt) best = { it, ph, startAt, dur };
         });
         if (best) {
