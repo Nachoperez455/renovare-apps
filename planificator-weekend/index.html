@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#382733">
+<meta name="description" content="Alege sarcinile proiectului tău și primești un orar real, sâmbătă și duminică — nu o listă, un plan.">
+<title>Planificatorul Weekendului Tău — Renovare Rezolvată</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap');
+:root{
+  --ink:#34272f;--muted:#796c70;--bg:#faf7f2;--paper:#fffefa;--line:#e8e0d8;
+  --accent:#92563d;--accent-soft:#f3e6da;--dark:#382733;--radius:18px;
+  --good:#5b7a5e;--good-soft:#e7eee6;--warn:#a65d3a;--warn-soft:#f5e3d6;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:40px}
+h1,h2,h3{font-family:'Playfair Display',Georgia,serif;margin:0;color:var(--dark);line-height:1.15}
+.serif-em{font-style:italic}
+p{margin:0}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:640px;margin:0 auto;padding:0 18px}
+
+header.top{background:var(--dark);color:#fff;padding:22px 18px 26px;text-align:center}
+header.top .kicker{font-family:'Manrope',sans-serif;font-weight:700;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-soft);opacity:.85}
+header.top h1{font-size:25px;color:#fff;margin:10px 0 8px}
+header.top p{font-size:14px;color:#e5d9ce;max-width:36ch;margin:0 auto}
+
+nav.nav{display:flex;gap:6px;overflow-x:auto;padding:14px 18px 0;max-width:640px;margin:0 auto;scrollbar-width:none}
+nav.nav::-webkit-scrollbar{display:none}
+nav.nav button{flex:0 0 auto;border:1px solid var(--line);background:var(--paper);color:var(--muted);font-weight:600;font-size:13px;padding:9px 14px;border-radius:100px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:all .15s ease}
+nav.nav button .step-no{width:18px;height:18px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-size:11px;font-weight:700;display:grid;place-items:center;flex:0 0 auto}
+nav.nav button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+nav.nav button.active .step-no{background:rgba(255,255,255,.25);color:#fff}
+
+main{padding:20px 0 0}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-bottom:14px;box-shadow:0 10px 30px -18px rgba(56,39,51,.18)}
+.card h2{font-size:18px;margin-bottom:6px}
+.card .hint{color:var(--muted);font-size:13px;margin-bottom:14px}
+
+.cat-label{font-family:'Manrope',sans-serif;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:16px 0 8px}
+.cat-label:first-child{margin-top:0}
+.task{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid var(--line)}
+.task:first-of-type{border-top:0}
+.task label{display:flex;align-items:center;gap:12px;flex:1;cursor:pointer;user-select:none;-webkit-user-select:none}
+.task input[type=checkbox]{width:21px;height:21px;accent-color:var(--accent);flex:0 0 auto}
+.task .t-name{font-weight:600;font-size:14.5px}
+.task .t-dur{color:var(--muted);font-size:12px;white-space:nowrap}
+
+.timeline-day{border-top:1px solid var(--line);padding:14px 0}
+.timeline-day:first-of-type{border-top:0}
+.timeline-day h3{font-size:16px;margin-bottom:4px}
+.timeline-day .day-total{color:var(--muted);font-size:12px;margin-bottom:10px}
+.tl-item{display:flex;gap:12px;padding:9px 0;border-top:1px dashed var(--line)}
+.tl-item:first-of-type{border-top:0}
+.tl-item .tl-time{font-family:'Manrope',sans-serif;font-weight:700;font-size:12.5px;color:var(--accent);white-space:nowrap;width:92px;flex:0 0 auto}
+.tl-item .tl-name{flex:1;font-size:14px}
+.tl-item.done .tl-name{text-decoration:line-through;color:var(--muted)}
+.tl-item input[type=checkbox]{width:19px;height:19px;accent-color:var(--good);flex:0 0 auto;margin-top:1px}
+.lunch{color:var(--muted);font-size:12px;font-style:italic;padding:6px 0;text-align:center}
+
+.overflow-box{background:var(--warn-soft);border-radius:12px;padding:12px 14px;margin-top:10px}
+.overflow-box b{color:var(--warn)}
+
+.result-hero{background:linear-gradient(165deg,var(--dark),#2c2027);color:#fff;border-radius:var(--radius);padding:24px 20px;text-align:center;margin-bottom:14px}
+.result-hero .kicker{font-family:'Manrope',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-soft);opacity:.85}
+.result-hero .big{font-family:'Playfair Display',serif;font-weight:700;font-size:32px;margin:10px 0 4px;color:#fff;line-height:1.15}
+.result-hero .sub{font-size:13px;color:#d9c9bd}
+
+.empty{text-align:center;color:var(--muted);font-size:14px;padding:30px 10px}
+.actions{display:flex;gap:10px;margin-top:4px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;flex:1;padding:14px 16px;border-radius:12px;border:0;font-weight:700;font-size:14.5px}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-ghost{background:var(--bg);color:var(--ink);border:1px solid var(--line)}
+
+.disclaimer{font-size:11px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.5}
+.save-status{font-size:11px;color:var(--muted);text-align:center;margin-top:16px}
+
+@media print{
+  nav.nav,.actions{display:none}
+  body{background:#fff}
+  .card,.result-hero{box-shadow:none;border:1px solid #ddd}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <span class="kicker">✦ Doar pentru cei care au cumpărat deja ✦</span>
+  <h1>Planificatorul <span class="serif-em">Weekendului Tău</span></h1>
+  <p>Alege ce ai de făcut — primești un orar real, sâmbătă și duminică, nu încă o listă de idei.</p>
+</header>
+
+<nav class="nav" id="nav"></nav>
+<main class="wrap" id="main"></main>
+
+<script>
+/* Duratele sunt estimări orientative de ritm de lucru DIY obișnuit (nu prețuri de
+   piață de cercetat — sunt timpi de execuție, nu costuri). Fiecare utilizatoare
+   lucrează în ritmul ei; orarul e un punct de plecare, nu o normă fixă. */
+window.PLAN_DATA = {
+  dayStart: '09:00', lunchStart: '13:00', lunchEnd: '14:00', dayEnd: '18:00',
+  // 09:00-13:00 (240 min) + 14:00-18:00 (240 min) = 480 min/zi, 960 min/weekend
+  categories: [
+    { id:'pereti', label:'Pereți și vopsit', tasks:[
+      { id:'vopsit-perete', label:'Vopsit un perete', min:90 },
+      { id:'vopsit-camera', label:'Vopsit o cameră întreagă (tavan + pereți)', min:240 },
+      { id:'reparat-fisura', label:'Reparat o fisură sau o gaură mică în perete', min:30 },
+    ]},
+    { id:'suprafete', label:'Suprafețe și finisaje', tasks:[
+      { id:'folie-fronturi', label:'Montat folie autoadezivă pe fronturi/mobilă', min:90 },
+      { id:'silicon', label:'Schimbat siliconul la baie sau bucătărie', min:45 },
+      { id:'rosturi', label:'Curățat rosturile de gresie/faianță', min:45 },
+      { id:'lustruit-parchet', label:'Curățat și lustruit parchetul', min:60 },
+      { id:'covor', label:'Montat un covor sau un preș nou', min:20 },
+    ]},
+    { id:'montaj', label:'Montaj și organizare', tasks:[
+      { id:'rafturi', label:'Montat rafturi sau etajere', min:60 },
+      { id:'baterie', label:'Montat o baterie nouă', min:45 },
+      { id:'tablouri', label:'Agățat tablouri sau oglinzi', min:30 },
+      { id:'mobila-noua', label:'Asamblat o piesă de mobilă nouă', min:90 },
+      { id:'organizat-dulap', label:'Organizat un dulap sau un sertar', min:60 },
+    ]},
+    { id:'final', label:'Final', tasks:[
+      { id:'plante', label:'Aranjat plante și accente decorative', min:30 },
+      { id:'curatenie', label:'Curățenie generală după lucru', min:90 },
+    ]}
+  ]
+};
+</script>
+
+<script>
+(() => {
+'use strict';
+const DATA = window.PLAN_DATA;
+const KEY = 'renovare-rezolvata:planificator-weekend:v1';
+const ALL_TASKS = DATA.categories.flatMap(c => c.tasks.map(t => ({ ...t, cat: c.label })));
+const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function toMin(hhmm){ const [h,m] = hhmm.split(':').map(Number); return h*60+m; }
+function toHHMM(min){ const h = Math.floor(min/60)%24, m = min%60; return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0'); }
+const DAY_BLOCK_MIN = (toMin(DATA.lunchStart)-toMin(DATA.dayStart)) + (toMin(DATA.dayEnd)-toMin(DATA.lunchEnd)); // 480
+
+function initial(){
+  return { tab:'sarcini', selected:{}, done:{} };
+  // selected[taskId] = true; done[taskId] = true (bifat pe orar)
+}
+let state = initial(), storageOK = true;
+
+function save(){
+  try { localStorage.setItem(KEY, JSON.stringify(state)); storageOK = true; }
+  catch(_) { storageOK = false; }
+  document.querySelectorAll('[data-save]').forEach(el => el.textContent = saveText());
+}
+function load(){
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (!raw) return;
+    const parsed = JSON.parse(raw);
+    if (!parsed) return;
+    const validIds = new Set(ALL_TASKS.map(t => t.id));
+    const cleanSel = {}, cleanDone = {};
+    if (parsed.selected && typeof parsed.selected === 'object') {
+      Object.keys(parsed.selected).forEach(id => { if (validIds.has(id) && parsed.selected[id] === true) cleanSel[id] = true; });
+    }
+    if (parsed.done && typeof parsed.done === 'object') {
+      Object.keys(parsed.done).forEach(id => { if (validIds.has(id) && parsed.done[id] === true) cleanDone[id] = true; });
+    }
+    state.selected = cleanSel;
+    state.done = cleanDone;
+    if (['sarcini','orar'].includes(parsed.tab)) state.tab = parsed.tab;
+  } catch(_) { storageOK = false; }
+}
+const saveText = () => storageOK
+  ? 'Salvat automat pe acest dispozitiv.'
+  : 'Salvarea locală nu e disponibilă pe acest browser — alegerile se pierd la închidere.';
+
+/* ---- distribuie sarcinile alese în blocuri reale (dimineață/după-amiază ×
+   sâmbătă/duminică) — primul bloc cu loc liber REAL câștigă fiecare sarcină, ca
+   să nu se "piardă" timp mort înainte de prânz fără ca scheduler-ul să observe
+   (bug real găsit: o sarcină ajungea să înceapă după ora de închidere a zilei). */
+function buildSchedule(){
+  const tasks = ALL_TASKS.filter(t => state.selected[t.id]);
+  const blockDefs = [
+    { day:0, label:'Sâmbătă', start: toMin(DATA.dayStart), end: toMin(DATA.lunchStart) },
+    { day:0, label:'Sâmbătă', start: toMin(DATA.lunchEnd), end: toMin(DATA.dayEnd) },
+    { day:1, label:'Duminică', start: toMin(DATA.dayStart), end: toMin(DATA.lunchStart) },
+    { day:1, label:'Duminică', start: toMin(DATA.lunchEnd), end: toMin(DATA.dayEnd) }
+  ];
+  const blocks = blockDefs.map(b => ({ ...b, cursor: b.start, items:[] }));
+  const overflow = [];
+  tasks.forEach(t => {
+    const block = blocks.find(b => (b.end - b.cursor) >= t.min);
+    if (!block) { overflow.push(t); return; }
+    const item = { ...t, start: block.cursor, end: block.cursor + t.min };
+    block.cursor += t.min;
+    block.items.push(item);
+  });
+  const days = [0,1].map(d => {
+    const dayBlocks = blocks.filter(b => b.day === d);
+    const items = dayBlocks.flatMap(b => b.items);
+    return { label: dayBlocks[0].label, items, usedMin: items.reduce((s,i)=>s+(i.end-i.start),0) };
+  });
+  return { days, overflow, totalTasks: tasks.length, totalMin: tasks.reduce((s,t)=>s+t.min,0) };
+}
+
+const tabs = [['sarcini','Alege sarcinile'],['orar','Orarul tău']];
+function renderNav(){
+  const nav = document.getElementById('nav');
+  nav.innerHTML = tabs.map(([id,title],i) =>
+    `<button data-tab="${id}" class="${state.tab===id?'active':''}"><span class="step-no">${i+1}</span>${title}</button>`
+  ).join('');
+  nav.querySelectorAll('button').forEach(b => b.onclick = () => goTab(b.dataset.tab));
+}
+function goTab(id){ state.tab = id; save(); render(); window.scrollTo({top:0,behavior:'smooth'}); }
+
+function renderSarcini(){
+  return `<div class="card">
+    <h2>Ce ai de făcut?</h2>
+    <p class="hint">Bifează tot ce vrei să faci — le aranjăm într-un orar pe sâmbătă și duminică, cu pauză de prânz.</p>
+    ${DATA.categories.map(cat => `
+      <div class="cat-label">${esc(cat.label)}</div>
+      ${cat.tasks.map(t => `<div class="task">
+        <label><input type="checkbox" data-task="${t.id}" ${state.selected[t.id]?'checked':''}>
+          <span class="t-name">${esc(t.label)}</span>
+        </label>
+        <span class="t-dur">~${t.min>=60?Math.round(t.min/60*10)/10+' h':t.min+' min'}</span>
+      </div>`).join('')}
+    `).join('')}
+  </div>
+  <div class="actions">
+    <button class="btn btn-primary" data-go-orar>Vezi orarul meu →</button>
+  </div>`;
+}
+
+function renderOrar(){
+  const sched = buildSchedule();
+  if (sched.totalTasks === 0) {
+    return `<div class="card"><div class="empty">Nu ai bifat nicio sarcină încă.<br>Întoarce-te la „Alege sarcinile” ca să vezi orarul.</div></div>
+    <div class="actions"><button class="btn btn-ghost" data-go-sarcini>← Alege sarcinile</button></div>`;
+  }
+  const totalH = Math.round(sched.totalMin/60*10)/10;
+  return `<div class="result-hero">
+    <span class="kicker">Timp total de lucru</span>
+    <div class="big">${totalH} h</div>
+    <p class="sub">${sched.totalTasks} sarcin${sched.totalTasks>1?'i':'ă'}, distribuite pe weekend cu pauză de prânz</p>
+  </div>
+  <div class="card">
+    <h2>Orarul tău</h2>
+    ${sched.days.filter(d=>d.items.length).map(day => `<div class="timeline-day">
+      <h3>${esc(day.label)}</h3>
+      <div class="day-total">${Math.round(day.usedMin/60*10)/10} h de lucru</div>
+      ${day.items.map((item,i) => {
+        const showLunch = i>0 && day.items[i-1].end <= toMin(DATA.lunchStart) && item.start >= toMin(DATA.lunchEnd);
+        const done = state.done[item.id] === true;
+        return (showLunch ? `<div class="lunch">— pauză de prânz —</div>` : '') +
+        `<div class="tl-item ${done?'done':''}">
+          <input type="checkbox" data-done="${item.id}" ${done?'checked':''}>
+          <span class="tl-time">${toHHMM(item.start)}–${toHHMM(item.end)}</span>
+          <span class="tl-name">${esc(item.label)}</span>
+        </div>`;
+      }).join('')}
+    </div>`).join('')}
+    ${sched.overflow.length ? `<div class="overflow-box"><b>Nu încap într-un singur weekend:</b> ${sched.overflow.map(t=>esc(t.label)).join(', ')}. Lasă-le pentru weekendul următor, nu le îngrămădi.</div>` : ''}
+  </div>
+  <div class="actions">
+    <button class="btn btn-ghost" data-go-sarcini>← Modifică</button>
+    <button class="btn btn-primary" data-print>Salvează ca PDF</button>
+  </div>
+  <p class="disclaimer">Orar orientativ pe baza unui ritm de lucru DIY obișnuit (09:00–13:00 și 14:00–18:00, cu pauză de prânz) — ajustează-l după ritmul tău real.</p>`;
+}
+
+function render(){
+  renderNav();
+  const main = document.getElementById('main');
+  const scrollY = window.scrollY;
+  main.innerHTML = (state.tab === 'orar' ? renderOrar() : renderSarcini())
+    + `<p class="save-status" data-save>${saveText()}</p>`;
+
+  main.querySelectorAll('[data-task]').forEach(cb => {
+    cb.onchange = () => {
+      const id = cb.dataset.task;
+      if (cb.checked) state.selected[id] = true; else delete state.selected[id];
+      save(); render();
+    };
+  });
+  main.querySelectorAll('[data-done]').forEach(cb => {
+    cb.onchange = () => {
+      const id = cb.dataset.done;
+      if (cb.checked) state.done[id] = true; else delete state.done[id];
+      cb.closest('.tl-item').classList.toggle('done', cb.checked);
+      save();
+    };
+  });
+  const goOrar = main.querySelector('[data-go-orar]');
+  if (goOrar) goOrar.onclick = () => goTab('orar');
+  const goSarcini = main.querySelector('[data-go-sarcini]');
+  if (goSarcini) goSarcini.onclick = () => goTab('sarcini');
+  const printBtn = main.querySelector('[data-print]');
+  if (printBtn) printBtn.onclick = () => window.print();
+  window.scrollTo({top:scrollY});
+}
+
+load();
+render();
+})();
+</script>
+</body>
+</html>
