@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#2a2330">
+<meta name="description" content="Diagnostic personalizat: care din cele 47 de greșeli frecvente de renovare te privesc pe tine, și cum le eviți înainte să cheltui bani.">
+<title>Diagnosticul Renovării Tale — Renovare Rezolvată</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap');
+:root{
+  --ink:#2b2420;--muted:#7a6f61;--bg:#faf6ee;--paper:#fffdf8;--line:#e9e0ce;
+  --amber:#c9922e;--amber-soft:#f6e9d0;--dark:#2a2330;--radius:18px;
+  --safety:#b23b3b;--safety-soft:#f5dcdc;
+  --good:#5b7a5e;--good-soft:#e7eee6;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:40px}
+h1,h2,h3{font-family:'Playfair Display',Georgia,serif;margin:0;color:var(--dark);line-height:1.15}
+.serif-em{font-style:italic}
+p{margin:0}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:640px;margin:0 auto;padding:0 18px}
+
+header.top{position:relative;background:linear-gradient(165deg,var(--dark),#19141e);color:#fff;overflow:hidden}
+header.top .photo{width:100%;height:140px;object-fit:cover;display:block;opacity:.5}
+header.top .photo-fallback{width:100%;height:140px;background:linear-gradient(135deg,#3a2f42,#19141e)}
+header.top .content{padding:16px 18px 22px;text-align:center;margin-top:-48px;position:relative}
+header.top .kicker{font-family:'Manrope',sans-serif;font-weight:700;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber-soft);opacity:.95}
+header.top h1{font-size:23px;color:#fff;margin:8px 0 6px}
+header.top p{font-size:13.5px;color:#e9e2d8;max-width:38ch;margin:0 auto}
+
+main{padding:20px 0 0}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-bottom:14px;box-shadow:0 10px 30px -18px rgba(43,36,32,.16)}
+
+/* wizard */
+.progress-dots{display:flex;justify-content:center;gap:7px;padding:16px 0 4px}
+.progress-dots i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.progress-dots i.on{background:var(--amber);width:22px;border-radius:100px}
+.progress-dots i.done{background:var(--amber);opacity:.5}
+.q-step{text-align:center;padding:6px 4px 2px}
+.q-step .q-no{font-family:'Manrope',sans-serif;font-weight:700;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber)}
+.q-step h2{font-size:21px;margin:8px 0 18px}
+.opt-grid{display:flex;flex-direction:column;gap:10px}
+.opt-grid.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt-card{border:1.5px solid var(--line);background:var(--paper);border-radius:14px;padding:14px 16px;text-align:left;font-weight:700;font-size:14.5px;color:var(--ink);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.opt-card .opt-sub{display:block;font-weight:500;font-size:12px;color:var(--muted);margin-top:2px}
+.opt-card.on{border-color:var(--amber);background:var(--amber-soft)}
+.opt-card .check{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--line);flex:0 0 auto}
+.opt-card.on .check{background:var(--amber);border-color:var(--amber)}
+.wizard-nav{display:flex;gap:10px;margin-top:18px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;flex:1;padding:14px 16px;border-radius:12px;border:0;font-weight:700;font-size:14.5px}
+.btn-primary{background:var(--amber);color:#2a1e08}
+.btn-ghost{background:var(--bg);color:var(--ink);border:1px solid var(--line)}
+
+/* result hero */
+.result-hero{background:linear-gradient(165deg,var(--dark),#19141e);color:#fff;border-radius:var(--radius);padding:22px 20px;text-align:center;margin-bottom:14px}
+.result-hero .kicker{font-family:'Manrope',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber-soft);opacity:.95}
+.result-hero .big{font-family:'Playfair Display',serif;font-weight:700;font-size:28px;margin:8px 0 10px;color:#fff;line-height:1.2}
+.progress-bar{height:9px;border-radius:100px;background:rgba(255,255,255,.14);overflow:hidden;margin-bottom:6px}
+.progress-bar i{display:block;height:100%;background:linear-gradient(90deg,#c9922e,#efcf8c);border-radius:100px}
+.result-hero .sub{font-size:12.5px;color:#d9d0c4}
+
+.section-label{font-family:'Manrope',sans-serif;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin:4px 0 10px}
+
+.err-card{border:1.5px solid var(--line);border-radius:16px;padding:14px 15px;margin-bottom:12px;background:var(--paper)}
+.err-card.priority{border-color:var(--amber);background:linear-gradient(180deg,var(--amber-soft),var(--paper) 40%)}
+.err-card.safety{border-color:var(--safety)}
+.err-card.done{opacity:.5}
+.err-card.done .err-title{text-decoration:line-through}
+.err-top{display:flex;align-items:flex-start;gap:10px}
+.err-top input[type=checkbox]{width:20px;height:20px;accent-color:var(--good);flex:0 0 auto;margin-top:2px}
+.err-body{flex:1}
+.err-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:5px}
+.badge{font-family:'Manrope',sans-serif;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;border-radius:100px;padding:2px 8px}
+.badge.cat{background:var(--amber-soft);color:#8a5e13}
+.badge.safety{background:var(--safety-soft);color:var(--safety)}
+.err-title{font-weight:700;font-size:15px;margin-bottom:4px}
+.err-why{font-size:11.5px;color:var(--amber);font-weight:600;margin-bottom:6px}
+.err-text{font-size:13px;color:var(--ink);line-height:1.55}
+
+.consult-group{margin-bottom:6px}
+.consult-head{display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:11px 2px;border-top:1px solid var(--line)}
+.consult-head:first-child{border-top:0}
+.consult-head h3{font-size:14.5px}
+.consult-head .arrow{color:var(--muted);transition:transform .15s}
+.consult-head.open .arrow{transform:rotate(90deg)}
+.consult-body{display:none;padding:4px 0 10px}
+.consult-body.open{display:block}
+
+.empty{text-align:center;color:var(--muted);font-size:14px;padding:30px 10px}
+.actions{display:flex;gap:10px;margin-top:4px}
+
+.disclaimer{font-size:11px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.5}
+.save-status{font-size:11px;color:var(--muted);text-align:center;margin-top:16px}
+
+@media print{
+  .wizard-nav,.actions{display:none}
+  body{background:#fff}
+  .card,.result-hero{box-shadow:none;border:1px solid #ddd}
+  .consult-body{display:block!important}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div id="header-photo"></div>
+  <div class="content">
+    <span class="kicker">✦ Doar pentru cei care au cumpărat deja ✦</span>
+    <h1>Diagnosticul <span class="serif-em">Renovării Tale</span></h1>
+    <p>Pe care din cele 47 de greșeli frecvente le poți evita, înainte să cheltui bani pe degeaba.</p>
+  </div>
+</header>
+
+<main class="wrap" id="main"></main>
+
+<script>
+/* Cele 47 de greșeli, textul exact din bonusul „Salvează Renovarea" (nimic adăugat,
+   nimic inventat). tags = ce condiții din profilul utilizatoarei le fac relevante
+   pentru SCOR/prioritate (nu pentru a le ascunde — o categorie activată rămâne
+   întreagă, vizibilă, de consultat; scorul decide doar ce apare în TOP). safety:true
+   = avertisment de siguranță reală — niciodată redus de nivelul de experiență. */
+window.ERRORS = [
+ // A — Pregătire și siguranță (mereu relevantă: "înainte să începi orice")
+ {id:'a1',cat:'A',catLabel:'Pregătire și siguranță',title:'Ai vopsit fără amorsă',text:'Dacă vopseaua nu acoperă uniform, aplică un strat de amorsă acum și vopsește din nou peste — nu adăuga încă un strat de vopsea simplă, nu ajută.',tags:['vopsit']},
+ {id:'a2',cat:'A',catLabel:'Pregătire și siguranță',title:'Ai lucrat fără să protejezi podeaua',text:'Pentru pete proaspete de vopsea pe parchet, șterge imediat cu o cârpă umedă; pentru pete uscate, folosește alcool izopropilic, nu solvenți agresivi.',tags:['vopsit','pardoseala']},
+ {id:'a3',cat:'A',catLabel:'Pregătire și siguranță',title:'Ai folosit scule fără să verifici tensiunea curentului',text:'Oprește siguranța camerei înainte de orice lucru lângă prize sau cabluri — niciun proiect din acest ghid nu merită un risc electric.',tags:['electric'],safety:true},
+ {id:'a4',cat:'A',catLabel:'Pregătire și siguranță',title:'Nu ai aerisit camera la vopsit/lipit',text:'Deschide geamul și pornește un ventilator îndreptat spre exterior — mirosurile de solvent se dizolvă mult mai repede decât pare.',tags:['vopsit','gresie-faianta'],safety:true},
+ {id:'a5',cat:'A',catLabel:'Pregătire și siguranță',title:'Ai amestecat produse chimice diferite (clor + alte soluții)',text:'Niciodată nu amesteca înălbitor cu alte soluții de curățat — oprește-te, aerisește imediat camera și nu continua amestecul.',tags:[],safety:true},
+ {id:'a6',cat:'A',catLabel:'Pregătire și siguranță',title:'Ai început un proiect mare fără să cumperi tot materialul dintr-o dată',text:'Cumpără cu 10-15% în plus din orice material cu lot/nuanță (gresie, vopsea) — loturile diferite au mici variații de culoare.',tags:['gresie-faianta','vopsit']},
+ // B — Faianță, gresie și pardoseli
+ {id:'b1',cat:'B',catLabel:'Faianță, gresie și pardoseli',title:'Ai lipit panoul PVC peste un perete umed',text:'Dezlipește imediat, lasă peretele să se usuce complet 48 de ore, apoi relipește — altfel panoul cade singur în câteva săptămâni.',tags:['gresie-faianta']},
+ {id:'b2',cat:'B',catLabel:'Faianță, gresie și pardoseli',title:'Ai tăiat folia/vinilul prea scurt',text:'Nu încerca să întinzi materialul — cumpără o bucată mică în plus și suprapune cu 1-2 mm pe cusătură, exact ca la tapet.',tags:['mobilier']},
+ {id:'b3',cat:'B',catLabel:'Faianță, gresie și pardoseli',title:'Au rămas bule de aer sub folie',text:'Înțeapă bula cu un ac fin și presează ușor aerul afară cu racleta, dinspre margini spre înțepătură.',tags:['mobilier']},
+ {id:'b4',cat:'B',catLabel:'Faianță, gresie și pardoseli',title:'Ai montat parchetul/SPC fără rost de dilatare la perete',text:'Scoate plinta, taie 8 mm din marginea pardoselii dacă deja s-a montat lipit, și remontează plinta peste rost.',tags:['pardoseala']},
+ {id:'b5',cat:'B',catLabel:'Faianță, gresie și pardoseli',title:'Chitul de reparat gresie nu s-a prins de prima dată',text:'Curăță din nou zona cu alcool, lasă să se usuce complet, și aplică un strat mai subțire — suprafața trebuia degresată, nu doar curățată de praf.',tags:['gresie-faianta']},
+ {id:'b6',cat:'B',catLabel:'Faianță, gresie și pardoseli',title:'Ai folosit vopsea obișnuită pe gresia de balcon',text:'Se va coji în câteva luni — șlefuiește ușor, curăță, și aplică vopsea epoxidică specială de exterior, singura potrivită pentru trafic și intemperii.',tags:['gresie-faianta','vopsit']},
+ {id:'b7',cat:'B',catLabel:'Faianță, gresie și pardoseli',title:'Rostul nou turnat are culoare diferită de restul',text:'Loturile de chit de rosturi variază — testează mereu pe o zonă mică ascunsă înainte de a face tot rostul.',tags:['gresie-faianta']},
+ {id:'b8',cat:'B',catLabel:'Faianță, gresie și pardoseli',title:'Gresia nouă sună a gol când calci pe ea',text:'Dacă nu s-a mișcat sau crăpat, de obicei e doar o bulă mică de aer sub adeziv, fără risc — monitorizează, dar nu e nevoie să o scoți.',tags:['gresie-faianta']},
+ // C — Pereți și vopsea
+ {id:'c1',cat:'C',catLabel:'Pereți și vopsea',title:'Au rămas dungi vizibile de la rolă',text:"Lasă stratul să se usuce complet și aplică încă un strat subțire, cu mișcări în 'W' urmate de uniformizare pe verticală, fără să te oprești pe mijlocul peretelui.",tags:['vopsit']},
+ {id:'c2',cat:'C',catLabel:'Pereți și vopsea',title:'Banda de mascare a luat vopsea cu ea',text:'Retușează cu o pensulă fină exact pe linia afectată — nu încerca să recolorezi tot peretele pentru o zonă mică.',tags:['vopsit']},
+ {id:'c3',cat:'C',catLabel:'Pereți și vopsea',title:'Tapetul autoadeziv s-a umflat într-un colț',text:'Dezlipește colțul afectat, degresează din nou peretele dedesubt, și relipește presând bine cu racleta — de obicei acolo peretele avea praf sau grăsime.',tags:['vopsit']},
+ {id:'c4',cat:'C',catLabel:'Pereți și vopsea',title:'Ai vopsit peste o pată de igrasie fără grund izolator',text:'Pata va reapărea în câteva săptămâni, garantat — oprește-te, aplică grund izolator anti-pete, apoi vopsește din nou peste.',tags:['vopsit']},
+ {id:'c5',cat:'C',catLabel:'Pereți și vopsea',title:'Panoul decorativ 3D nu s-a lipit uniform',text:'Susține-l cu bandă de mascare minimum 24 de ore, nu doar câteva ore — adezivul de montaj are nevoie de tot acest timp ca să prindă complet.',tags:['vopsit']},
+ {id:'c6',cat:'C',catLabel:'Pereți și vopsea',title:'Culoarea aleasă arată altfel pe perete decât pe eșantion',text:'Testează mereu pe o suprafață de minimum 50x50 cm, în lumina reală a camerei, înainte de a vopsi tot peretele.',tags:['vopsit']},
+ {id:'c7',cat:'C',catLabel:'Pereți și vopsea',title:'A apărut o crăpătură nouă în câteva luni de la reparație',text:'Reparația fără bandă de fibră de sticlă nu ține pe termen lung — refă-o cu bandă sub stratul de glet, de data asta.',tags:['vopsit']},
+ // D — Mobilier
+ {id:'d1',cat:'D',catLabel:'Mobilier',title:'Vopseaua de pe mobilă s-a cojit în câteva săptămâni',text:'Lipsea grundul de aderență — șlefuiește ușor, aplică grund special pentru suprafețe lăcuite, apoi vopsește din nou.',tags:['mobilier']},
+ {id:'d2',cat:'D',catLabel:'Mobilier',title:'Vinilul autoadeziv nu s-a lipit bine pe colțuri',text:'Încălzește ușor colțul cu uscătorul de păr înainte de a presa — vinilul rece se rupe sau nu se mulează pe muchii.',tags:['mobilier']},
+ {id:'d3',cat:'D',catLabel:'Mobilier',title:'Mânerul nou nu se potrivește cu găurile vechi',text:'Umple găurile vechi cu chit de lemn, lasă să se usuce, și dă găuri noi folosind un șablon de carton pentru precizie.',tags:['mobilier']},
+ {id:'d4',cat:'D',catLabel:'Mobilier',title:'Piciorul nou de mobilă e instabil',text:'Verifică dacă toate cele patru picioare au exact aceeași înălțime — o diferență de câțiva milimetri se simte imediat la o masă.',tags:['mobilier']},
+ {id:'d5',cat:'D',catLabel:'Mobilier',title:'Sertarul reparat tot se blochează',text:'Dacă parafina nu ajută, problema e probabil în ghidaj — verifică dacă vreun șurub iese în interiorul șinei și scurtează-l.',tags:['mobilier']},
+ {id:'d6',cat:'D',catLabel:'Mobilier',title:"Culoarea de chalk paint arată 'crudă', nefinisată",text:'Lipsește stratul de ceară sau lac mat de protecție — fără el, vopseaua rămâne poroasă și se murdărește ușor.',tags:['mobilier']},
+ // E — Baie și rosturi
+ {id:'e1',cat:'E',catLabel:'Baie și rosturi',title:'Siliconul nou a mucegăit în câteva săptămâni',text:'Ai folosit silicon sanitar obișnuit — scoate-l și refă cu silicon special anti-mucegai, singurul potrivit lângă cadă/duș.',tags:['baie']},
+ {id:'e2',cat:'E',catLabel:'Baie și rosturi',title:'Markerul de albit rosturi nu a ținut',text:'Rostul nu era complet uscat la aplicare — curăță din nou, lasă minimum 2-3 ore de uscare completă, apoi reaplică.',tags:['baie']},
+ {id:'e3',cat:'E',catLabel:'Baie și rosturi',title:'A apărut condens în spatele panoului PVC',text:'Verifică dacă ventilația băii funcționează — panoul nu cauzează condens, doar îl face vizibil mai târziu dacă problema exista deja.',tags:['baie']},
+ {id:'e4',cat:'E',catLabel:'Baie și rosturi',title:'Garnitura nouă de cauciuc nu se potrivește perfect',text:'Verifică profilul exact al cabinei (poza făcută înainte de demontare) — există mai multe lățimi standard, ușor de confundat.',tags:['baie']},
+ {id:'e5',cat:'E',catLabel:'Baie și rosturi',title:'Chiuveta etanșată din nou tot are scurgere mică',text:'Siliconul are nevoie de 24 de ore complet uscat fără apă — dacă a fost udată mai devreme, etanșarea nu s-a întărit corect, refă.',tags:['baie']},
+ {id:'e6',cat:'E',catLabel:'Baie și rosturi',title:'Vopseaua de rosturi colorată s-a dus pe faianță',text:'Șterge imediat cu o cârpă umedă înainte să se usuce; dacă s-a uscat deja, folosește alcool izopropilic pe un colț discret mai întâi.',tags:['baie']},
+ // F — Electricitate și iluminat
+ {id:'f1',cat:'F',catLabel:'Electricitate și iluminat',title:'Lustra nouă nu pornește după montaj',text:'Verifică din nou poza cu cablajul vechi — cel mai des firul de nul și cel de fază sunt inversate față de poziția inițială.',tags:['electric'],safety:true},
+ {id:'f2',cat:'F',catLabel:'Electricitate și iluminat',title:'Banda LED nu se aprinde la jumătatea ei',text:'Banda a fost tăiată în afara punctelor marcate — taie mereu exact pe liniile indicate de producător, nu oriunde.',tags:['electric']},
+ {id:'f3',cat:'F',catLabel:'Electricitate și iluminat',title:'Senzorul de mișcare se declanșează fals, tot timpul',text:'Reduce sensibilitatea din șurubul de reglaj, sau mută-l departe de surse de aer cald (calorifer, ventilație).',tags:['electric']},
+ {id:'f4',cat:'F',catLabel:'Electricitate și iluminat',title:'Becurile cumpărate nu dau aceeași lumină peste tot',text:'Verifică temperatura de culoare pe ambalaj (K) — amestecarea 3000K cu 4000K în aceeași cameră se vede imediat.',tags:['electric']},
+ {id:'f5',cat:'F',catLabel:'Electricitate și iluminat',title:'Ai montat un electrocasnic/aplică fără să oprești siguranța',text:'Oprește-te imediat, oprește siguranța camerei de la tablou, și continuă abia după — niciun proiect nu merită acest risc.',tags:['electric'],safety:true},
+ // G — Chirie și reversibilitate
+ {id:'g1',cat:'G',catLabel:'Chirie și reversibilitate',title:'Ai lipit ceva permanent fără să întrebi proprietarul',text:'Verifică mereu contractul înainte — majoritatea soluțiilor din acest ghid sunt reversibile, dar unele (vopsea pe perete) nu sunt.',tags:['chirie']},
+ {id:'g2',cat:'G',catLabel:'Chirie și reversibilitate',title:'Ai găurit pereții pentru rafturi fără acordul proprietarului',text:'Folosește variantele cu bandă dublu-adezivă industrială din acest ghid — câteva găuri mici de obicei nu contează, dar verifică oricum.',tags:['chirie']},
+ {id:'g3',cat:'G',catLabel:'Chirie și reversibilitate',title:"Nu ai făcut poze 'înainte' la mutare",text:'Fotografiază fiecare cameră din mai multe unghiuri în prima zi — e dovada ta dacă apare vreo dispută la final de contract.',tags:['chirie']},
+ {id:'g4',cat:'G',catLabel:'Chirie și reversibilitate',title:'Ai aplicat folie/vinil care a lăsat urme la dezlipire',text:'Folosește căldură ușoară (uscător de păr) la dezlipire, lent, și curăță imediat urmele de adeziv cu alcool izopropilic.',tags:['chirie']},
+ {id:'g5',cat:'G',catLabel:'Chirie și reversibilitate',title:'Nu ai păstrat dovada materialelor reversibile folosite',text:'Păstrează bonurile și fotografii cu etapele montajului — arată clar proprietarului că intervenția nu a afectat structura.',tags:['chirie']},
+ // H — Buget și cumpărături (mereu relevantă)
+ {id:'h1',cat:'H',catLabel:'Buget și cumpărături',title:'Ai cumpărat exact metrajul necesar, fără rezervă',text:'Adaugă mereu 10-15% la orice material tăiat (folie, gresie, vinil) — tăierile greșite sunt inevitabile chiar la cei experimentați.',tags:['buget']},
+ {id:'h2',cat:'H',catLabel:'Buget și cumpărături',title:'Ai cumpărat materiale din loturi diferite',text:'Verifică numărul de lot pe ambalaj înainte de a cumpăra — mai ales la vopsea și gresie, loturi diferite au variații vizibile de nuanță.',tags:['buget']},
+ {id:'h3',cat:'H',catLabel:'Buget și cumpărături',title:'Ai ales cel mai ieftin adeziv/silicon pentru zona umedă',text:'În baie și bucătărie, diferența de preț dintre un silicon obișnuit și unul anti-mucegai e mică — dar diferența de durată e de ani de zile.',tags:['buget','baie']},
+ {id:'h4',cat:'H',catLabel:'Buget și cumpărături',title:'Nu ai verificat recenziile înainte de o comandă online mare',text:'Pentru huse de canapea, mobilier sau orice cu dimensiuni critice, verifică mereu recenziile cu poze reale, nu doar poza oficială a produsului.',tags:['buget']}
+];
+
+window.HEADER_PHOTO = 'https://aekpgsbqjzqntlbucbts.supabase.co/storage/v1/object/public/store-resources/08d76286-3f15-4b95-a6c9-d53efa7cd384/1793585973939_diagnostic-greseli-header-23dabd9d.png';
+
+window.CATEGORY_TRIGGER = {
+  A: () => true,
+  H: () => true,
+  B: p => p.transf.includes('gresie-faianta') || p.transf.includes('pardoseala'),
+  C: p => p.transf.includes('vopsit'),
+  D: p => p.transf.includes('mobilier'),
+  F: p => p.transf.includes('electric'),
+  E: p => p.ambient==='baie' || p.transf.includes('baie'),
+  G: p => p.locuinta==='chirie'
+};
+
+window.TAG_REASON = {
+  vopsit:'pentru că ai bifat vopsitul pereților',
+  'gresie-faianta':'pentru că ai bifat gresie/faianță',
+  pardoseala:'pentru că ai bifat montaj de pardoseală',
+  mobilier:'pentru că ai bifat mobilier nou',
+  electric:'pentru că ai bifat electric/iluminat',
+  baie:'pentru că lucrezi în baie',
+  chirie:'pentru că stai cu chirie'
+};
+</script>
+
+<script>
+(() => {
+'use strict';
+const ERRORS = window.ERRORS, TRIGGER = window.CATEGORY_TRIGGER, TAG_REASON = window.TAG_REASON;
+const KEY = 'renovare-rezolvata:diagnostic-greseli:v1';
+const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const CAT_ORDER = ['A','H','C','B','D','E','F','G'];
+
+const QUESTIONS = [
+  { id:'locuinta', title:'Ce tip de locuință ai?', type:'single', options:[
+    { v:'proprietate', label:'Proprietate' }, { v:'chirie', label:'Chirie' }
+  ]},
+  { id:'ambient', title:'Care e ambientul principal?', type:'single', grid:true, options:[
+    { v:'bucatarie', label:'Bucătărie' }, { v:'baie', label:'Baie' },
+    { v:'dormitor', label:'Dormitor' }, { v:'living', label:'Living' },
+    { v:'hol', label:'Hol / Intrare' }, { v:'birou', label:'Birou' }
+  ]},
+  { id:'transf', title:'Ce transformări ai în plan?', sub:'Poți alege mai multe.', type:'multi', options:[
+    { v:'vopsit', label:'Vopsit pereți' }, { v:'gresie-faianta', label:'Gresie / faianță' },
+    { v:'pardoseala', label:'Pardoseală' }, { v:'mobilier', label:'Mobilier nou' },
+    { v:'electric', label:'Electric / iluminat' }, { v:'baie', label:'Baie / rosturi' }
+  ]},
+  { id:'experienta', title:'Experiența ta DIY?', type:'single', options:[
+    { v:'incepatoare', label:'Începătoare', sub:'Primul meu proiect serios' },
+    { v:'cu-experienta', label:'Am mai făcut câteva proiecte', sub:'Mă descurc cu de-ale casei' },
+    { v:'experimentata', label:'Experimentată', sub:'Renovez des, știu uneltele' }
+  ]},
+  { id:'buget', title:'Bugetul pentru acest proiect?', type:'single', options:[
+    { v:'strans', label:'Strâns', sub:'Fiecare leu contează' },
+    { v:'mediu', label:'Mediu', sub:'Am o marjă, dar nu nelimitată' },
+    { v:'generos', label:'Generos', sub:'Prioritate pe rezultat, nu pe preț' }
+  ]}
+];
+
+function initial(){
+  return { step:0, done:false, profile:{ locuinta:null, ambient:null, transf:[], experienta:null, buget:null }, checked:{}, openGroups:{} };
+}
+let state = initial(), storageOK = true;
+
+function save(){
+  try { localStorage.setItem(KEY, JSON.stringify(state)); storageOK = true; }
+  catch(_) { storageOK = false; }
+  document.querySelectorAll('[data-save]').forEach(el => el.textContent = saveText());
+}
+function load(){
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (!raw) return;
+    const parsed = JSON.parse(raw);
+    if (!parsed) return;
+    state = Object.assign(initial(), {
+      step: Number.isInteger(parsed.step) ? parsed.step : 0,
+      done: parsed.done === true,
+      profile: {
+        locuinta: ['proprietate','chirie'].includes(parsed.profile?.locuinta) ? parsed.profile.locuinta : null,
+        ambient: QUESTIONS[1].options.some(o=>o.v===parsed.profile?.ambient) ? parsed.profile.ambient : null,
+        transf: Array.isArray(parsed.profile?.transf) ? parsed.profile.transf.filter(t => QUESTIONS[2].options.some(o=>o.v===t)) : [],
+        experienta: ['incepatoare','cu-experienta','experimentata'].includes(parsed.profile?.experienta) ? parsed.profile.experienta : null,
+        buget: ['strans','mediu','generos'].includes(parsed.profile?.buget) ? parsed.profile.buget : null
+      },
+      checked: (parsed.checked && typeof parsed.checked==='object') ? parsed.checked : {},
+      openGroups: (parsed.openGroups && typeof parsed.openGroups==='object') ? parsed.openGroups : {}
+    });
+  } catch(_) { storageOK = false; }
+}
+const saveText = () => storageOK
+  ? 'Salvat automat pe acest dispozitiv.'
+  : 'Salvarea locală nu e disponibilă pe acest browser — alegerile se pierd la închidere.';
+
+/* ---- diagnostic: ce categorii sunt active, scor individual per greșeală,
+   top prioritar (uniune cu TOT ce e safety), restul de consultat ---- */
+function buildDiagnostic(){
+  const p = state.profile;
+  const activeCats = CAT_ORDER.filter(c => TRIGGER[c](p));
+  const relevant = ERRORS.filter(e => activeCats.includes(e.cat));
+  const scored = relevant.map(e => {
+    let score = 0; let matchedTag = null;
+    e.tags.forEach(t => {
+      let hit = false;
+      if (t==='vopsit' && p.transf.includes('vopsit')) hit = true;
+      if (t==='gresie-faianta' && p.transf.includes('gresie-faianta')) hit = true;
+      if (t==='pardoseala' && p.transf.includes('pardoseala')) hit = true;
+      if (t==='mobilier' && p.transf.includes('mobilier')) hit = true;
+      if (t==='electric' && p.transf.includes('electric')) hit = true;
+      if (t==='baie' && (p.ambient==='baie' || p.transf.includes('baie'))) hit = true;
+      if (t==='chirie' && p.locuinta==='chirie') hit = true;
+      if (t==='buget' && p.buget==='strans') hit = true;
+      if (hit) { score += 3; if (!matchedTag) matchedTag = t; }
+    });
+    if (e.safety) score += 5; // avertisment de siguranță — nu scade niciodată cu experiența
+    if (!e.safety) {
+      if (p.experienta==='incepatoare') score += 1;
+      if (p.experienta==='experimentata') score -= 1;
+    }
+    return { e, score: Math.max(score,0), matchedTag };
+  });
+  scored.sort((a,b) => b.score-a.score);
+  const topByScore = scored.slice(0,5).filter(s => s.score>0);
+  const safetyOnes = scored.filter(s => s.e.safety);
+  const priorityMap = new Map();
+  topByScore.forEach(s => priorityMap.set(s.e.id, s));
+  safetyOnes.forEach(s => priorityMap.set(s.e.id, s));
+  const priority = [...priorityMap.values()].sort((a,b) => b.score-a.score).slice(0,6);
+  const priorityIds = new Set(priority.map(s=>s.e.id));
+  const restByCat = {};
+  activeCats.forEach(c => { restByCat[c] = relevant.filter(e => e.cat===c && !priorityIds.has(e.id)); });
+  return { activeCats, relevant, priority, restByCat };
+}
+
+function renderDots(){
+  const total = QUESTIONS.length;
+  return `<div class="progress-dots">${QUESTIONS.map((_,i) => `<i class="${i===state.step?'on':(i<state.step?'done':'')}"></i>`).join('')}</div>`;
+}
+
+function renderWizard(){
+  const q = QUESTIONS[state.step];
+  const val = state.profile[q.id];
+  const isOn = opt => q.type==='multi' ? val.includes(opt.v) : val===opt.v;
+  const canNext = q.type==='multi' ? true : val !== null; // multi poate fi gol (nicio transformare specifică) — rămâne valid
+  return `${renderDots()}
+  <div class="card q-step">
+    <span class="q-no">Întrebarea ${state.step+1} din ${QUESTIONS.length}</span>
+    <h2>${esc(q.title)}</h2>
+    ${q.sub?`<p style="color:var(--muted);font-size:12.5px;margin:-12px 0 16px">${esc(q.sub)}</p>`:''}
+    <div class="opt-grid ${q.grid?'grid2':''}">
+      ${q.options.map(o => `<button class="opt-card ${isOn(o)?'on':''}" data-opt="${o.v}" data-qid="${q.id}" data-qtype="${q.type}">
+        <span>${esc(o.label)}${o.sub?`<span class="opt-sub">${esc(o.sub)}</span>`:''}</span>
+        <span class="check"></span>
+      </button>`).join('')}
+    </div>
+    <div class="wizard-nav">
+      ${state.step>0?`<button class="btn btn-ghost" data-wiz-back>← Înapoi</button>`:''}
+      <button class="btn btn-primary" data-wiz-next ${canNext?'':'disabled style="opacity:.4"'}>${state.step===QUESTIONS.length-1?'Vezi diagnosticul →':'Continuă →'}</button>
+    </div>
+  </div>`;
+}
+
+function renderErrCard(entry, isPriority){
+  const e = entry.e;
+  const key = e.id;
+  const done = state.checked[key] === true;
+  const reason = entry.matchedTag ? TAG_REASON[entry.matchedTag] : (e.safety ? 'e un risc de siguranță valabil la orice renovare' : 'se aplică oricărui proiect de renovare');
+  return `<div class="err-card ${isPriority?'priority':''} ${e.safety?'safety':''} ${done?'done':''}">
+    <div class="err-top">
+      <input type="checkbox" data-check="${key}" ${done?'checked':''}>
+      <div class="err-body">
+        <div class="err-badges"><span class="badge cat">${esc(e.catLabel)}</span>${e.safety?'<span class="badge safety">Siguranță</span>':''}</div>
+        <div class="err-title">${esc(e.title)}</div>
+        ${isPriority?`<div class="err-why">Te privește ${esc(reason)}</div>`:''}
+        <div class="err-text">${esc(e.text)}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderResult(){
+  const d = buildDiagnostic();
+  const allIds = d.relevant.map(e=>e.id);
+  const doneCount = allIds.filter(id => state.checked[id]).length;
+  const pct = allIds.length ? Math.round(doneCount/allIds.length*100) : 0;
+
+  return `<div class="result-hero">
+    <span class="kicker">Progresul tău</span>
+    <div class="big">${pct}%</div>
+    <div class="progress-bar"><i style="width:${pct}%"></i></div>
+    <p class="sub">${d.relevant.length} greșeli relevante pentru profilul tău · ${d.priority.length} prioritare</p>
+  </div>
+  <div class="card">
+    <div class="section-label">Cele mai importante pentru tine</div>
+    ${d.priority.map(entry => renderErrCard(entry, true)).join('')}
+  </div>
+  <div class="card">
+    <div class="section-label">De consultat — restul greșelilor relevante</div>
+    ${d.activeCats.filter(c => d.restByCat[c].length).map(c => {
+      const open = state.openGroups[c] === true;
+      return `<div class="consult-group">
+        <div class="consult-head ${open?'open':''}" data-toggle-group="${c}">
+          <h3>${esc(d.restByCat[c][0].catLabel)} <span style="color:var(--muted);font-weight:500">(${d.restByCat[c].length})</span></h3>
+          <span class="arrow">›</span>
+        </div>
+        <div class="consult-body ${open?'open':''}">
+          ${d.restByCat[c].map(e => renderErrCard({e,matchedTag:null}, false)).join('')}
+        </div>
+      </div>`;
+    }).join('')}
+  </div>
+  <div class="actions">
+    <button class="btn btn-ghost" data-modifica>← Modifică răspunsurile</button>
+    <button class="btn btn-primary" data-print>Salvează ca PDF</button>
+  </div>
+  <p class="disclaimer">Acesta e un ghid informativ bazat pe greșeli frecvente de renovare — nu e o evaluare tehnică profesională. Pentru lucrări electrice sau structurale la care nu te simți sigură, cere un electrician/meseriaș autorizat.</p>`;
+}
+
+function render(){
+  const main = document.getElementById('main');
+  const scrollY = window.scrollY;
+  main.innerHTML = (state.done ? renderResult() : renderWizard())
+    + `<p class="save-status" data-save>${saveText()}</p>`;
+
+  main.querySelectorAll('[data-opt]').forEach(btn => btn.onclick = () => {
+    const qid = btn.dataset.qid, qtype = btn.dataset.qtype, v = btn.dataset.opt;
+    if (qtype==='multi') {
+      const arr = state.profile[qid];
+      const idx = arr.indexOf(v);
+      if (idx>=0) arr.splice(idx,1); else arr.push(v);
+    } else {
+      state.profile[qid] = v;
+    }
+    save(); render();
+  });
+  const nextBtn = main.querySelector('[data-wiz-next]');
+  if (nextBtn) nextBtn.onclick = () => {
+    const q = QUESTIONS[state.step];
+    if (q.type!=='multi' && state.profile[q.id]===null) return;
+    if (state.step < QUESTIONS.length-1) state.step++;
+    else state.done = true;
+    save(); render(); window.scrollTo({top:0,behavior:'smooth'});
+  };
+  const backBtn = main.querySelector('[data-wiz-back]');
+  if (backBtn) backBtn.onclick = () => { state.step--; save(); render(); window.scrollTo({top:0,behavior:'smooth'}); };
+  const modBtn = main.querySelector('[data-modifica]');
+  if (modBtn) modBtn.onclick = () => { state.done = false; state.step = 0; save(); render(); window.scrollTo({top:0,behavior:'smooth'}); };
+  const printBtn = main.querySelector('[data-print]');
+  if (printBtn) printBtn.onclick = () => window.print();
+
+  main.querySelectorAll('[data-check]').forEach(cb => cb.onchange = () => {
+    if (cb.checked) state.checked[cb.dataset.check] = true; else delete state.checked[cb.dataset.check];
+    save();
+    cb.closest('.err-card').classList.toggle('done', cb.checked);
+    const d = buildDiagnostic();
+    const allIds = d.relevant.map(e=>e.id);
+    const doneCount = allIds.filter(id => state.checked[id]).length;
+    const pct = allIds.length ? Math.round(doneCount/allIds.length*100) : 0;
+    const pctEl = document.querySelector('.result-hero .big');
+    const barEl = document.querySelector('.progress-bar i');
+    if (pctEl && barEl) { pctEl.textContent = pct+'%'; barEl.style.width = pct+'%'; }
+  });
+  main.querySelectorAll('[data-toggle-group]').forEach(h => h.onclick = () => {
+    const c = h.dataset.toggleGroup;
+    state.openGroups[c] = !state.openGroups[c];
+    save(); render();
+  });
+
+  window.scrollTo({top:scrollY});
+}
+
+function renderHeaderPhoto(){
+  const el = document.getElementById('header-photo');
+  if (window.HEADER_PHOTO) el.innerHTML = `<img class="photo" src="${window.HEADER_PHOTO}" alt="">`;
+  else el.innerHTML = `<div class="photo-fallback"></div>`;
+}
+
+load();
+renderHeaderPhoto();
+render();
+})();
+</script>
+</body>
+</html>
