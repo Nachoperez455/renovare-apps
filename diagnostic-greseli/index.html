@@ -79,6 +79,10 @@ main{padding:20px 0 0}
 .err-title{font-weight:700;font-size:15px;margin-bottom:4px}
 .err-why{font-size:11.5px;color:var(--amber);font-weight:600;margin-bottom:6px}
 .err-text{font-size:13px;color:var(--ink);line-height:1.55}
+.err-prevent{margin-top:8px;padding:8px 10px;background:var(--amber-soft);border-radius:10px;font-size:12px;color:#5c4111;line-height:1.5}
+.err-prevent b{color:#8a5e13}
+.err-safetynote{margin-top:8px;padding:9px 10px;background:var(--safety-soft);border:1px dashed var(--safety);border-radius:10px;font-size:11.5px;color:#5c1f1f;line-height:1.55}
+.err-safetynote b{color:var(--safety)}
 
 .consult-group{margin-bottom:6px}
 .consult-head{display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:11px 2px;border-top:1px solid var(--line)}
@@ -124,73 +128,80 @@ main{padding:20px 0 0}
    = avertisment de siguranță reală — niciodată redus de nivelul de experiență. */
 window.ERRORS = [
  // A — Pregătire și siguranță (mereu relevantă: "înainte să începi orice")
- {id:'a1',cat:'A',catLabel:'Pregătire și siguranță',title:'Ai vopsit fără amorsă',text:'Dacă vopseaua nu acoperă uniform, aplică un strat de amorsă acum și vopsește din nou peste — nu adăuga încă un strat de vopsea simplă, nu ajută.',tags:['vopsit']},
- {id:'a2',cat:'A',catLabel:'Pregătire și siguranță',title:'Ai lucrat fără să protejezi podeaua',text:'Pentru pete proaspete de vopsea pe parchet, șterge imediat cu o cârpă umedă; pentru pete uscate, folosește alcool izopropilic, nu solvenți agresivi.',tags:['vopsit','pardoseala']},
- {id:'a3',cat:'A',catLabel:'Pregătire și siguranță',title:'Ai folosit scule fără să verifici tensiunea curentului',text:'Oprește siguranța camerei înainte de orice lucru lângă prize sau cabluri — niciun proiect din acest ghid nu merită un risc electric.',tags:['electric'],safety:true},
- {id:'a4',cat:'A',catLabel:'Pregătire și siguranță',title:'Nu ai aerisit camera la vopsit/lipit',text:'Deschide geamul și pornește un ventilator îndreptat spre exterior — mirosurile de solvent se dizolvă mult mai repede decât pare.',tags:['vopsit','gresie-faianta'],safety:true},
- {id:'a5',cat:'A',catLabel:'Pregătire și siguranță',title:'Ai amestecat produse chimice diferite (clor + alte soluții)',text:'Niciodată nu amesteca înălbitor cu alte soluții de curățat — oprește-te, aerisește imediat camera și nu continua amestecul.',tags:[],safety:true},
- {id:'a6',cat:'A',catLabel:'Pregătire și siguranță',title:'Ai început un proiect mare fără să cumperi tot materialul dintr-o dată',text:'Cumpără cu 10-15% în plus din orice material cu lot/nuanță (gresie, vopsea) — loturile diferite au mici variații de culoare.',tags:['gresie-faianta','vopsit']},
+ {id:'a1',cat:'A',catLabel:'Pregătire și siguranță',title:'Ai vopsit fără amorsă',text:'Dacă vopseaua nu acoperă uniform, aplică un strat de amorsă acum și vopsește din nou peste — nu adăuga încă un strat de vopsea simplă, nu ajută.',prevent:'Testează amorsa pe o zonă mică înainte să vopsești tot peretele, mai ales pe suprafețe noi sau poroase.',tags:['vopsit']},
+ {id:'a2',cat:'A',catLabel:'Pregătire și siguranță',title:'Ai lucrat fără să protejezi podeaua',text:'Pentru pete proaspete de vopsea pe parchet, șterge imediat cu o cârpă umedă; pentru pete uscate, folosește alcool izopropilic, nu solvenți agresivi.',prevent:'Acoperă podeaua cu folie/prelată ÎNAINTE să deschizi cutia de vopsea, nu după prima picătură.',tags:['vopsit','pardoseala']},
+ {id:'a3',cat:'A',catLabel:'Pregătire și siguranță',title:'Ai folosit scule fără să verifici tensiunea curentului',text:'Oprește siguranța camerei înainte de orice lucru lângă prize sau cabluri — niciun proiect din acest ghid nu merită un risc electric.',prevent:'Regulă, nu excepție: oprește siguranța camerei din tablou înainte să atingi orice priză sau cablu, de fiecare dată.',tags:['electric'],safety:true},
+ {id:'a4',cat:'A',catLabel:'Pregătire și siguranță',title:'Nu ai aerisit camera la vopsit/lipit',text:'Deschide geamul și pornește un ventilator îndreptat spre exterior — mirosurile de solvent se dizolvă mult mai repede decât pare.',prevent:'Deschide geamul și pornește ventilatorul ÎNAINTE să deschizi cutia de vopsea/adeziv, nu după ce simți mirosul.',tags:['vopsit','gresie-faianta'],safety:true},
+ {id:'a5',cat:'A',catLabel:'Pregătire și siguranță',title:'Ai amestecat produse chimice diferite (clor + alte soluții)',text:'Niciodată nu amesteca înălbitor cu alte soluții de curățat — oprește-te, aerisește imediat camera și nu continua amestecul.',prevent:'Nu ține două soluții de curățat deschise în aceeași zonă — citește eticheta înainte de folosire, nu doar dacă ai greșit deja.',tags:[],safety:true},
+ {id:'a6',cat:'A',catLabel:'Pregătire și siguranță',title:'Ai început un proiect mare fără să cumperi tot materialul dintr-o dată',text:'Cumpără cu 10-15% în plus din orice material cu lot/nuanță (gresie, vopsea) — loturile diferite au mici variații de culoare.',prevent:'Calculează metrajul exact, apoi adaugă 10-15% la comanda inițială, nu după ce rămâi fără.',tags:['gresie-faianta','vopsit']},
  // B — Faianță, gresie și pardoseli
- {id:'b1',cat:'B',catLabel:'Faianță, gresie și pardoseli',title:'Ai lipit panoul PVC peste un perete umed',text:'Dezlipește imediat, lasă peretele să se usuce complet 48 de ore, apoi relipește — altfel panoul cade singur în câteva săptămâni.',tags:['gresie-faianta']},
- {id:'b2',cat:'B',catLabel:'Faianță, gresie și pardoseli',title:'Ai tăiat folia/vinilul prea scurt',text:'Nu încerca să întinzi materialul — cumpără o bucată mică în plus și suprapune cu 1-2 mm pe cusătură, exact ca la tapet.',tags:['mobilier']},
- {id:'b3',cat:'B',catLabel:'Faianță, gresie și pardoseli',title:'Au rămas bule de aer sub folie',text:'Înțeapă bula cu un ac fin și presează ușor aerul afară cu racleta, dinspre margini spre înțepătură.',tags:['mobilier']},
- {id:'b4',cat:'B',catLabel:'Faianță, gresie și pardoseli',title:'Ai montat parchetul/SPC fără rost de dilatare la perete',text:'Scoate plinta, taie 8 mm din marginea pardoselii dacă deja s-a montat lipit, și remontează plinta peste rost.',tags:['pardoseala']},
- {id:'b5',cat:'B',catLabel:'Faianță, gresie și pardoseli',title:'Chitul de reparat gresie nu s-a prins de prima dată',text:'Curăță din nou zona cu alcool, lasă să se usuce complet, și aplică un strat mai subțire — suprafața trebuia degresată, nu doar curățată de praf.',tags:['gresie-faianta']},
- {id:'b6',cat:'B',catLabel:'Faianță, gresie și pardoseli',title:'Ai folosit vopsea obișnuită pe gresia de balcon',text:'Se va coji în câteva luni — șlefuiește ușor, curăță, și aplică vopsea epoxidică specială de exterior, singura potrivită pentru trafic și intemperii.',tags:['gresie-faianta','vopsit']},
- {id:'b7',cat:'B',catLabel:'Faianță, gresie și pardoseli',title:'Rostul nou turnat are culoare diferită de restul',text:'Loturile de chit de rosturi variază — testează mereu pe o zonă mică ascunsă înainte de a face tot rostul.',tags:['gresie-faianta']},
+ {id:'b1',cat:'B',catLabel:'Faianță, gresie și pardoseli',title:'Ai lipit panoul PVC peste un perete umed',text:'Dezlipește imediat, lasă peretele să se usuce complet 48 de ore, apoi relipește — altfel panoul cade singur în câteva săptămâni.',prevent:'Verifică cu mâna (sau un higrometru) că peretele e complet uscat înainte să lipești orice panou.',tags:['gresie-faianta']},
+ {id:'b2',cat:'B',catLabel:'Faianță, gresie și pardoseli',title:'Ai tăiat folia/vinilul prea scurt',text:'Nu încerca să întinzi materialul — cumpără o bucată mică în plus și suprapune cu 1-2 mm pe cusătură, exact ca la tapet.',prevent:'Măsoară suprafața și cumpără cu o bucată în plus înainte să tai — nu ghici exact din prima.',tags:['mobilier']},
+ {id:'b3',cat:'B',catLabel:'Faianță, gresie și pardoseli',title:'Au rămas bule de aer sub folie',text:'Înțeapă bula cu un ac fin și presează ușor aerul afară cu racleta, dinspre margini spre înțepătură.',prevent:'Presează dinspre centru spre margini cu racleta chiar din momentul lipirii, nu după ce ai lăsat folia să se așeze singură.',tags:['mobilier']},
+ {id:'b4',cat:'B',catLabel:'Faianță, gresie și pardoseli',title:'Ai montat parchetul/SPC fără rost de dilatare la perete',text:'Scoate plinta, taie 8 mm din marginea pardoselii dacă deja s-a montat lipit, și remontează plinta peste rost.',prevent:'Lasă 8-10 mm liber între pardoseală și perete ÎNAINTE de montaj, apoi acoperă cu plinta.',tags:['pardoseala']},
+ {id:'b5',cat:'B',catLabel:'Faianță, gresie și pardoseli',title:'Chitul de reparat gresie nu s-a prins de prima dată',text:'Curăță din nou zona cu alcool, lasă să se usuce complet, și aplică un strat mai subțire — suprafața trebuia degresată, nu doar curățată de praf.',prevent:'Degresează zona cu alcool înainte de orice reparație de chit, nu doar o ștergere de praf.',tags:['gresie-faianta']},
+ {id:'b6',cat:'B',catLabel:'Faianță, gresie și pardoseli',title:'Ai folosit vopsea obișnuită pe gresia de balcon',text:'Se va coji în câteva luni — șlefuiește ușor, curăță, și aplică vopsea epoxidică specială de exterior, singura potrivită pentru trafic și intemperii.',prevent:'Pe gresie de exterior/balcon alege direct vopsea epoxidică de la început — vopseaua obișnuită oricum nu rezistă acolo.',tags:['gresie-faianta','vopsit']},
+ {id:'b7',cat:'B',catLabel:'Faianță, gresie și pardoseli',title:'Rostul nou turnat are culoare diferită de restul',text:'Loturile de chit de rosturi variază — testează mereu pe o zonă mică ascunsă înainte de a face tot rostul.',prevent:'Testează chitul pe o zonă mică ascunsă înainte de a face tot rostul vizibil.',tags:['gresie-faianta']},
  {id:'b8',cat:'B',catLabel:'Faianță, gresie și pardoseli',title:'Gresia nouă sună a gol când calci pe ea',text:'Dacă nu s-a mișcat sau crăpat, de obicei e doar o bulă mică de aer sub adeziv, fără risc — monitorizează, dar nu e nevoie să o scoți.',tags:['gresie-faianta']},
  // C — Pereți și vopsea
- {id:'c1',cat:'C',catLabel:'Pereți și vopsea',title:'Au rămas dungi vizibile de la rolă',text:"Lasă stratul să se usuce complet și aplică încă un strat subțire, cu mișcări în 'W' urmate de uniformizare pe verticală, fără să te oprești pe mijlocul peretelui.",tags:['vopsit']},
+ {id:'c1',cat:'C',catLabel:'Pereți și vopsea',title:'Au rămas dungi vizibile de la rolă',text:"Lasă stratul să se usuce complet și aplică încă un strat subțire, cu mișcări în 'W' urmate de uniformizare pe verticală, fără să te oprești pe mijlocul peretelui.",prevent:"Aplică de la primul strat cu mișcări în 'W' urmate de uniformizare pe verticală, nu doar la retuș.",tags:['vopsit']},
  {id:'c2',cat:'C',catLabel:'Pereți și vopsea',title:'Banda de mascare a luat vopsea cu ea',text:'Retușează cu o pensulă fină exact pe linia afectată — nu încerca să recolorezi tot peretele pentru o zonă mică.',tags:['vopsit']},
- {id:'c3',cat:'C',catLabel:'Pereți și vopsea',title:'Tapetul autoadeziv s-a umflat într-un colț',text:'Dezlipește colțul afectat, degresează din nou peretele dedesubt, și relipește presând bine cu racleta — de obicei acolo peretele avea praf sau grăsime.',tags:['vopsit']},
- {id:'c4',cat:'C',catLabel:'Pereți și vopsea',title:'Ai vopsit peste o pată de igrasie fără grund izolator',text:'Pata va reapărea în câteva săptămâni, garantat — oprește-te, aplică grund izolator anti-pete, apoi vopsește din nou peste.',tags:['vopsit']},
- {id:'c5',cat:'C',catLabel:'Pereți și vopsea',title:'Panoul decorativ 3D nu s-a lipit uniform',text:'Susține-l cu bandă de mascare minimum 24 de ore, nu doar câteva ore — adezivul de montaj are nevoie de tot acest timp ca să prindă complet.',tags:['vopsit']},
- {id:'c6',cat:'C',catLabel:'Pereți și vopsea',title:'Culoarea aleasă arată altfel pe perete decât pe eșantion',text:'Testează mereu pe o suprafață de minimum 50x50 cm, în lumina reală a camerei, înainte de a vopsi tot peretele.',tags:['vopsit']},
- {id:'c7',cat:'C',catLabel:'Pereți și vopsea',title:'A apărut o crăpătură nouă în câteva luni de la reparație',text:'Reparația fără bandă de fibră de sticlă nu ține pe termen lung — refă-o cu bandă sub stratul de glet, de data asta.',tags:['vopsit']},
+ {id:'c3',cat:'C',catLabel:'Pereți și vopsea',title:'Tapetul autoadeziv s-a umflat într-un colț',text:'Dezlipește colțul afectat, degresează din nou peretele dedesubt, și relipește presând bine cu racleta — de obicei acolo peretele avea praf sau grăsime.',prevent:'Degresează bine peretele înainte de lipire — praful sau grăsimea reziduală e cauza cea mai comună.',tags:['vopsit']},
+ {id:'c4',cat:'C',catLabel:'Pereți și vopsea',title:'Ai vopsit peste o pată de igrasie fără grund izolator',text:'Pata va reapărea în câteva săptămâni, garantat — oprește-te, aplică grund izolator anti-pete, apoi vopsește din nou peste.',prevent:'Verifică și rezolvă sursa de umiditate înainte să vopsești orice pată de igrasie — grundul izolator vine după, nu în loc de asta.',safetyNote:'Completare verificată: dacă pata vine dintr-o problemă de umiditate activă sau are mucegai vizibil (nu doar o urmă veche uscată), NU o acoperi direct cu vopsea sau grund — vopseaua nu omoară mucegaiul și pata poate reapărea prin stratul nou. Întâi elimină sursa de umiditate și curăță mucegaiul, lasă suprafața complet uscată, abia apoi grund izolator și vopsea. Sursă: ghiduri de specialitate în remediere umiditate/mucegai (EPA și altele) — verificat 2026-11-02.',tags:['vopsit'],safety:true},
+ {id:'c5',cat:'C',catLabel:'Pereți și vopsea',title:'Panoul decorativ 3D nu s-a lipit uniform',text:'Susține-l cu bandă de mascare minimum 24 de ore, nu doar câteva ore — adezivul de montaj are nevoie de tot acest timp ca să prindă complet.',prevent:'Susține panoul cu bandă de mascare minimum 24 de ore din momentul montajului, nu doar câteva ore din grabă.',tags:['vopsit']},
+ {id:'c6',cat:'C',catLabel:'Pereți și vopsea',title:'Culoarea aleasă arată altfel pe perete decât pe eșantion',text:'Testează mereu pe o suprafață de minimum 50x50 cm, în lumina reală a camerei, înainte de a vopsi tot peretele.',prevent:'Testează culoarea pe minimum 50x50 cm, în lumina reală a camerei, ÎNAINTE să cumperi cantitatea finală.',tags:['vopsit']},
+ {id:'c7',cat:'C',catLabel:'Pereți și vopsea',title:'A apărut o crăpătură nouă în câteva luni de la reparație',text:'Reparația fără bandă de fibră de sticlă nu ține pe termen lung — refă-o cu bandă sub stratul de glet, de data asta.',prevent:'Folosește bandă de fibră de sticlă sub stratul de glet chiar de la prima reparație, nu doar la a doua încercare.',tags:['vopsit']},
  // D — Mobilier
- {id:'d1',cat:'D',catLabel:'Mobilier',title:'Vopseaua de pe mobilă s-a cojit în câteva săptămâni',text:'Lipsea grundul de aderență — șlefuiește ușor, aplică grund special pentru suprafețe lăcuite, apoi vopsește din nou.',tags:['mobilier']},
- {id:'d2',cat:'D',catLabel:'Mobilier',title:'Vinilul autoadeziv nu s-a lipit bine pe colțuri',text:'Încălzește ușor colțul cu uscătorul de păr înainte de a presa — vinilul rece se rupe sau nu se mulează pe muchii.',tags:['mobilier']},
- {id:'d3',cat:'D',catLabel:'Mobilier',title:'Mânerul nou nu se potrivește cu găurile vechi',text:'Umple găurile vechi cu chit de lemn, lasă să se usuce, și dă găuri noi folosind un șablon de carton pentru precizie.',tags:['mobilier']},
- {id:'d4',cat:'D',catLabel:'Mobilier',title:'Piciorul nou de mobilă e instabil',text:'Verifică dacă toate cele patru picioare au exact aceeași înălțime — o diferență de câțiva milimetri se simte imediat la o masă.',tags:['mobilier']},
+ {id:'d1',cat:'D',catLabel:'Mobilier',title:'Vopseaua de pe mobilă s-a cojit în câteva săptămâni',text:'Lipsea grundul de aderență — șlefuiește ușor, aplică grund special pentru suprafețe lăcuite, apoi vopsește din nou.',prevent:'Aplică grund de aderență pe orice suprafață lăcuită înainte de vopsit, nu doar dacă se cojește prima dată.',tags:['mobilier']},
+ {id:'d2',cat:'D',catLabel:'Mobilier',title:'Vinilul autoadeziv nu s-a lipit bine pe colțuri',text:'Încălzește ușor colțul cu uscătorul de păr înainte de a presa — vinilul rece se rupe sau nu se mulează pe muchii.',prevent:'Încălzește ușor colțurile cu uscătorul de păr înainte să presezi vinilul acolo.',tags:['mobilier']},
+ {id:'d3',cat:'D',catLabel:'Mobilier',title:'Mânerul nou nu se potrivește cu găurile vechi',text:'Umple găurile vechi cu chit de lemn, lasă să se usuce, și dă găuri noi folosind un șablon de carton pentru precizie.',prevent:'Verifică distanța exactă dintre găurile noului mâner față de cele vechi înainte de comandă.',tags:['mobilier']},
+ {id:'d4',cat:'D',catLabel:'Mobilier',title:'Piciorul nou de mobilă e instabil',text:'Verifică dacă toate cele patru picioare au exact aceeași înălțime — o diferență de câțiva milimetri se simte imediat la o masă.',prevent:'Verifică înălțimea celor patru picioare unul lângă altul înainte de montaj.',tags:['mobilier']},
  {id:'d5',cat:'D',catLabel:'Mobilier',title:'Sertarul reparat tot se blochează',text:'Dacă parafina nu ajută, problema e probabil în ghidaj — verifică dacă vreun șurub iese în interiorul șinei și scurtează-l.',tags:['mobilier']},
- {id:'d6',cat:'D',catLabel:'Mobilier',title:"Culoarea de chalk paint arată 'crudă', nefinisată",text:'Lipsește stratul de ceară sau lac mat de protecție — fără el, vopseaua rămâne poroasă și se murdărește ușor.',tags:['mobilier']},
+ {id:'d6',cat:'D',catLabel:'Mobilier',title:"Culoarea de chalk paint arată 'crudă', nefinisată",text:'Lipsește stratul de ceară sau lac mat de protecție — fără el, vopseaua rămâne poroasă și se murdărește ușor.',prevent:'Aplică un strat de ceară sau lac mat de protecție imediat după ce vopseaua se usucă, nu doar dacă arată „crudă".',tags:['mobilier']},
  // E — Baie și rosturi
- {id:'e1',cat:'E',catLabel:'Baie și rosturi',title:'Siliconul nou a mucegăit în câteva săptămâni',text:'Ai folosit silicon sanitar obișnuit — scoate-l și refă cu silicon special anti-mucegai, singurul potrivit lângă cadă/duș.',tags:['baie']},
- {id:'e2',cat:'E',catLabel:'Baie și rosturi',title:'Markerul de albit rosturi nu a ținut',text:'Rostul nu era complet uscat la aplicare — curăță din nou, lasă minimum 2-3 ore de uscare completă, apoi reaplică.',tags:['baie']},
- {id:'e3',cat:'E',catLabel:'Baie și rosturi',title:'A apărut condens în spatele panoului PVC',text:'Verifică dacă ventilația băii funcționează — panoul nu cauzează condens, doar îl face vizibil mai târziu dacă problema exista deja.',tags:['baie']},
- {id:'e4',cat:'E',catLabel:'Baie și rosturi',title:'Garnitura nouă de cauciuc nu se potrivește perfect',text:'Verifică profilul exact al cabinei (poza făcută înainte de demontare) — există mai multe lățimi standard, ușor de confundat.',tags:['baie']},
- {id:'e5',cat:'E',catLabel:'Baie și rosturi',title:'Chiuveta etanșată din nou tot are scurgere mică',text:'Siliconul are nevoie de 24 de ore complet uscat fără apă — dacă a fost udată mai devreme, etanșarea nu s-a întărit corect, refă.',tags:['baie']},
- {id:'e6',cat:'E',catLabel:'Baie și rosturi',title:'Vopseaua de rosturi colorată s-a dus pe faianță',text:'Șterge imediat cu o cârpă umedă înainte să se usuce; dacă s-a uscat deja, folosește alcool izopropilic pe un colț discret mai întâi.',tags:['baie']},
+ {id:'e1',cat:'E',catLabel:'Baie și rosturi',title:'Siliconul nou a mucegăit în câteva săptămâni',text:'Ai folosit silicon sanitar obișnuit — scoate-l și refă cu silicon special anti-mucegai, singurul potrivit lângă cadă/duș.',prevent:'Alege de la început silicon special anti-mucegai pentru zona de duș/cadă, nu silicon sanitar obișnuit.',tags:['baie']},
+ {id:'e2',cat:'E',catLabel:'Baie și rosturi',title:'Markerul de albit rosturi nu a ținut',text:'Rostul nu era complet uscat la aplicare — curăță din nou, lasă minimum 2-3 ore de uscare completă, apoi reaplică.',prevent:'Lasă rostul minimum 2-3 ore de uscare completă înainte de aplicare, nu doar uscat la vedere.',tags:['baie']},
+ {id:'e3',cat:'E',catLabel:'Baie și rosturi',title:'A apărut condens în spatele panoului PVC',text:'Verifică dacă ventilația băii funcționează — panoul nu cauzează condens, doar îl face vizibil mai târziu dacă problema exista deja.',prevent:'Verifică ventilația băii înainte de montaj — un panou nou nu rezolvă o ventilație care deja nu funcționează.',tags:['baie']},
+ {id:'e4',cat:'E',catLabel:'Baie și rosturi',title:'Garnitura nouă de cauciuc nu se potrivește perfect',text:'Verifică profilul exact al cabinei (poza făcută înainte de demontare) — există mai multe lățimi standard, ușor de confundat.',prevent:'Fotografiază profilul exact al cabinei ÎNAINTE de demontare, ca referință sigură la cumpărare.',tags:['baie']},
+ {id:'e5',cat:'E',catLabel:'Baie și rosturi',title:'Chiuveta etanșată din nou tot are scurgere mică',text:'Siliconul are nevoie de 24 de ore complet uscat fără apă — dacă a fost udată mai devreme, etanșarea nu s-a întărit corect, refă.',prevent:'Lasă siliconul 24 de ore complet uscat, fără contact cu apa, înainte de prima utilizare.',tags:['baie']},
+ {id:'e6',cat:'E',catLabel:'Baie și rosturi',title:'Vopseaua de rosturi colorată s-a dus pe faianță',text:'Șterge imediat cu o cârpă umedă înainte să se usuce; dacă s-a uscat deja, folosește alcool izopropilic pe un colț discret mai întâi.',prevent:'Lucrează cu o cârpă umedă la îndemână chiar din timpul aplicării, nu abia după ce ai pătat faianța.',tags:['baie']},
  // F — Electricitate și iluminat
- {id:'f1',cat:'F',catLabel:'Electricitate și iluminat',title:'Lustra nouă nu pornește după montaj',text:'Verifică din nou poza cu cablajul vechi — cel mai des firul de nul și cel de fază sunt inversate față de poziția inițială.',tags:['electric'],safety:true},
- {id:'f2',cat:'F',catLabel:'Electricitate și iluminat',title:'Banda LED nu se aprinde la jumătatea ei',text:'Banda a fost tăiată în afara punctelor marcate — taie mereu exact pe liniile indicate de producător, nu oriunde.',tags:['electric']},
- {id:'f3',cat:'F',catLabel:'Electricitate și iluminat',title:'Senzorul de mișcare se declanșează fals, tot timpul',text:'Reduce sensibilitatea din șurubul de reglaj, sau mută-l departe de surse de aer cald (calorifer, ventilație).',tags:['electric']},
- {id:'f4',cat:'F',catLabel:'Electricitate și iluminat',title:'Becurile cumpărate nu dau aceeași lumină peste tot',text:'Verifică temperatura de culoare pe ambalaj (K) — amestecarea 3000K cu 4000K în aceeași cameră se vede imediat.',tags:['electric']},
+ {id:'f1',cat:'F',catLabel:'Electricitate și iluminat',title:'Lustra nouă nu pornește după montaj',text:'Verifică din nou poza cu cablajul vechi — cel mai des firul de nul și cel de fază sunt inversate față de poziția inițială.',prevent:'Fotografiază cablajul vechi ÎNAINTE de demontare — e singura ta referință sigură la montaj.',safetyNote:'Completare de siguranță: verifică firele DOAR cu siguranța oprită de la tablou, niciodată cu curentul pornit — regula de la „Pregătire și siguranță" se aplică și aici, nu doar la montaj, ci și la diagnosticare.',tags:['electric'],safety:true},
+ {id:'f2',cat:'F',catLabel:'Electricitate și iluminat',title:'Banda LED nu se aprinde la jumătatea ei',text:'Banda a fost tăiată în afara punctelor marcate — taie mereu exact pe liniile indicate de producător, nu oriunde.',prevent:'Verifică liniile de tăiere marcate de producător înainte de a tăia, nu din ochi.',tags:['electric']},
+ {id:'f3',cat:'F',catLabel:'Electricitate și iluminat',title:'Senzorul de mișcare se declanșează fals, tot timpul',text:'Reduce sensibilitatea din șurubul de reglaj, sau mută-l departe de surse de aer cald (calorifer, ventilație).',prevent:'Montează senzorul departe de calorifer/ventilație din prima — repoziționarea ulterioară e mai greu de accesat.',tags:['electric']},
+ {id:'f4',cat:'F',catLabel:'Electricitate și iluminat',title:'Becurile cumpărate nu dau aceeași lumină peste tot',text:'Verifică temperatura de culoare pe ambalaj (K) — amestecarea 3000K cu 4000K în aceeași cameră se vede imediat.',prevent:'Verifică temperatura de culoare (K) pe toate becurile ÎNAINTE de a le cumpăra pentru aceeași cameră.',tags:['electric']},
  {id:'f5',cat:'F',catLabel:'Electricitate și iluminat',title:'Ai montat un electrocasnic/aplică fără să oprești siguranța',text:'Oprește-te imediat, oprește siguranța camerei de la tablou, și continuă abia după — niciun proiect nu merită acest risc.',tags:['electric'],safety:true},
  // G — Chirie și reversibilitate
- {id:'g1',cat:'G',catLabel:'Chirie și reversibilitate',title:'Ai lipit ceva permanent fără să întrebi proprietarul',text:'Verifică mereu contractul înainte — majoritatea soluțiilor din acest ghid sunt reversibile, dar unele (vopsea pe perete) nu sunt.',tags:['chirie']},
- {id:'g2',cat:'G',catLabel:'Chirie și reversibilitate',title:'Ai găurit pereții pentru rafturi fără acordul proprietarului',text:'Folosește variantele cu bandă dublu-adezivă industrială din acest ghid — câteva găuri mici de obicei nu contează, dar verifică oricum.',tags:['chirie']},
- {id:'g3',cat:'G',catLabel:'Chirie și reversibilitate',title:"Nu ai făcut poze 'înainte' la mutare",text:'Fotografiază fiecare cameră din mai multe unghiuri în prima zi — e dovada ta dacă apare vreo dispută la final de contract.',tags:['chirie']},
- {id:'g4',cat:'G',catLabel:'Chirie și reversibilitate',title:'Ai aplicat folie/vinil care a lăsat urme la dezlipire',text:'Folosește căldură ușoară (uscător de păr) la dezlipire, lent, și curăță imediat urmele de adeziv cu alcool izopropilic.',tags:['chirie']},
- {id:'g5',cat:'G',catLabel:'Chirie și reversibilitate',title:'Nu ai păstrat dovada materialelor reversibile folosite',text:'Păstrează bonurile și fotografii cu etapele montajului — arată clar proprietarului că intervenția nu a afectat structura.',tags:['chirie']},
+ {id:'g1',cat:'G',catLabel:'Chirie și reversibilitate',title:'Ai lipit ceva permanent fără să întrebi proprietarul',text:'Verifică mereu contractul înainte — majoritatea soluțiilor din acest ghid sunt reversibile, dar unele (vopsea pe perete) nu sunt.',prevent:'Verifică mereu contractul de închiriere ÎNAINTE să lipești orice definitiv.',tags:['chirie']},
+ {id:'g2',cat:'G',catLabel:'Chirie și reversibilitate',title:'Ai găurit pereții pentru rafturi fără acordul proprietarului',text:'Folosește variantele cu bandă dublu-adezivă industrială din acest ghid — câteva găuri mici de obicei nu contează, dar verifică oricum.',prevent:'Întreabă proprietarul sau alege bandă dublu-adezivă industrială din start, nu doar dacă apare o problemă.',tags:['chirie']},
+ {id:'g3',cat:'G',catLabel:'Chirie și reversibilitate',title:"Nu ai făcut poze 'înainte' la mutare",text:'Fotografiază fiecare cameră din mai multe unghiuri în prima zi — e dovada ta dacă apare vreo dispută la final de contract.',prevent:'Fotografiază fiecare cameră din mai multe unghiuri chiar din prima zi de mutare.',tags:['chirie']},
+ {id:'g4',cat:'G',catLabel:'Chirie și reversibilitate',title:'Ai aplicat folie/vinil care a lăsat urme la dezlipire',text:'Folosește căldură ușoară (uscător de păr) la dezlipire, lent, și curăță imediat urmele de adeziv cu alcool izopropilic.',prevent:'Testează pe un colț mic cum se dezlipește folia înainte de a o aplica pe toată suprafața.',tags:['chirie']},
+ {id:'g5',cat:'G',catLabel:'Chirie și reversibilitate',title:'Nu ai păstrat dovada materialelor reversibile folosite',text:'Păstrează bonurile și fotografii cu etapele montajului — arată clar proprietarului că intervenția nu a afectat structura.',prevent:'Păstrează bonurile chiar din timpul proiectului, nu abia la final.',tags:['chirie']},
  // H — Buget și cumpărături (mereu relevantă)
- {id:'h1',cat:'H',catLabel:'Buget și cumpărături',title:'Ai cumpărat exact metrajul necesar, fără rezervă',text:'Adaugă mereu 10-15% la orice material tăiat (folie, gresie, vinil) — tăierile greșite sunt inevitabile chiar la cei experimentați.',tags:['buget']},
- {id:'h2',cat:'H',catLabel:'Buget și cumpărături',title:'Ai cumpărat materiale din loturi diferite',text:'Verifică numărul de lot pe ambalaj înainte de a cumpăra — mai ales la vopsea și gresie, loturi diferite au variații vizibile de nuanță.',tags:['buget']},
- {id:'h3',cat:'H',catLabel:'Buget și cumpărături',title:'Ai ales cel mai ieftin adeziv/silicon pentru zona umedă',text:'În baie și bucătărie, diferența de preț dintre un silicon obișnuit și unul anti-mucegai e mică — dar diferența de durată e de ani de zile.',tags:['buget','baie']},
- {id:'h4',cat:'H',catLabel:'Buget și cumpărături',title:'Nu ai verificat recenziile înainte de o comandă online mare',text:'Pentru huse de canapea, mobilier sau orice cu dimensiuni critice, verifică mereu recenziile cu poze reale, nu doar poza oficială a produsului.',tags:['buget']}
+ {id:'h1',cat:'H',catLabel:'Buget și cumpărături',title:'Ai cumpărat exact metrajul necesar, fără rezervă',text:'Adaugă mereu 10-15% la orice material tăiat (folie, gresie, vinil) — tăierile greșite sunt inevitabile chiar la cei experimentați.',prevent:'Adaugă 10-15% la orice material tăiat chiar din comanda inițială.',tags:['buget']},
+ {id:'h2',cat:'H',catLabel:'Buget și cumpărături',title:'Ai cumpărat materiale din loturi diferite',text:'Verifică numărul de lot pe ambalaj înainte de a cumpăra — mai ales la vopsea și gresie, loturi diferite au variații vizibile de nuanță.',prevent:'Verifică numărul de lot pe ambalaj înainte de a cumpăra toată cantitatea necesară.',tags:['buget']},
+ {id:'h3',cat:'H',catLabel:'Buget și cumpărături',title:'Ai ales cel mai ieftin adeziv/silicon pentru zona umedă',text:'În baie și bucătărie, diferența de preț dintre un silicon obișnuit și unul anti-mucegai e mică — dar diferența de durată e de ani de zile.',prevent:'În baie și bucătărie, alege direct varianta anti-mucegai de la cumpărare — diferența de preț e mică.',tags:['buget','baie']},
+ {id:'h4',cat:'H',catLabel:'Buget și cumpărături',title:'Nu ai verificat recenziile înainte de o comandă online mare',text:'Pentru huse de canapea, mobilier sau orice cu dimensiuni critice, verifică mereu recenziile cu poze reale, nu doar poza oficială a produsului.',prevent:'Verifică recenziile cu poze reale înainte de orice comandă online cu dimensiuni critice.',tags:['buget']}
 ];
 
 window.HEADER_PHOTO = 'https://aekpgsbqjzqntlbucbts.supabase.co/storage/v1/object/public/store-resources/08d76286-3f15-4b95-a6c9-d53efa7cd384/1793585973939_diagnostic-greseli-header-23dabd9d.png';
 
-window.CATEGORY_TRIGGER = {
-  A: () => true,
-  H: () => true,
-  B: p => p.transf.includes('gresie-faianta') || p.transf.includes('pardoseala'),
-  C: p => p.transf.includes('vopsit'),
-  D: p => p.transf.includes('mobilier'),
-  F: p => p.transf.includes('electric'),
-  E: p => p.ambient==='baie' || p.transf.includes('baie'),
-  G: p => p.locuinta==='chirie'
+// Relevanța fiecărei greșeli se decide INDIVIDUAL, pe tag-urile ei proprii, nu pe un
+// "trigger" de categorie — o categorie nu mai e un bloc monolit. Asta repară bug-ul
+// real găsit: b2/b3 sunt despre vinil/folie și au tag 'mobilier', dar trăiau în
+// categoria B (care se activa doar pe gresie-faianta/pardoseala) — dacă alegeai doar
+// mobilier, dispăreau, deși etichetate corect. Acum fiecare greșeală se verifică pe
+// PROPRIILE tag-uri, indiferent de ce categorie din PDF o conține.
+window.isTagRelevant = (tag, p) => {
+  if (tag==='vopsit') return p.transf.includes('vopsit');
+  if (tag==='gresie-faianta') return p.transf.includes('gresie-faianta');
+  if (tag==='pardoseala') return p.transf.includes('pardoseala');
+  if (tag==='mobilier') return p.transf.includes('mobilier');
+  if (tag==='electric') return p.transf.includes('electric');
+  if (tag==='baie') return p.ambient==='baie' || p.transf.includes('baie');
+  if (tag==='chirie') return p.locuinta==='chirie';
+  if (tag==='buget') return p.buget==='strans';
+  return false;
 };
 
 window.TAG_REASON = {
@@ -200,14 +211,15 @@ window.TAG_REASON = {
   mobilier:'pentru că ai bifat mobilier nou',
   electric:'pentru că ai bifat electric/iluminat',
   baie:'pentru că lucrezi în baie',
-  chirie:'pentru că stai cu chirie'
+  chirie:'pentru că stai cu chirie',
+  buget:'pentru că ai spus că bugetul e strâns'
 };
 </script>
 
 <script>
 (() => {
 'use strict';
-const ERRORS = window.ERRORS, TRIGGER = window.CATEGORY_TRIGGER, TAG_REASON = window.TAG_REASON;
+const ERRORS = window.ERRORS, isTagRelevant = window.isTagRelevant, TAG_REASON = window.TAG_REASON;
 const KEY = 'renovare-rezolvata:diagnostic-greseli:v1';
 const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const CAT_ORDER = ['A','H','C','B','D','E','F','G'];
@@ -277,21 +289,13 @@ const saveText = () => storageOK
    top prioritar (uniune cu TOT ce e safety), restul de consultat ---- */
 function buildDiagnostic(){
   const p = state.profile;
-  const activeCats = CAT_ORDER.filter(c => TRIGGER[c](p));
-  const relevant = ERRORS.filter(e => activeCats.includes(e.cat));
+  // relevantă = categorie de bază (A/H, mereu) SAU măcar un tag propriu se potrivește
+  // cu profilul — per-greșeală, nu per-categorie (vezi comentariul de la isTagRelevant).
+  const relevant = ERRORS.filter(e => e.cat==='A' || e.cat==='H' || e.tags.some(t => isTagRelevant(t,p)));
   const scored = relevant.map(e => {
     let score = 0; let matchedTag = null;
     e.tags.forEach(t => {
-      let hit = false;
-      if (t==='vopsit' && p.transf.includes('vopsit')) hit = true;
-      if (t==='gresie-faianta' && p.transf.includes('gresie-faianta')) hit = true;
-      if (t==='pardoseala' && p.transf.includes('pardoseala')) hit = true;
-      if (t==='mobilier' && p.transf.includes('mobilier')) hit = true;
-      if (t==='electric' && p.transf.includes('electric')) hit = true;
-      if (t==='baie' && (p.ambient==='baie' || p.transf.includes('baie'))) hit = true;
-      if (t==='chirie' && p.locuinta==='chirie') hit = true;
-      if (t==='buget' && p.buget==='strans') hit = true;
-      if (hit) { score += 3; if (!matchedTag) matchedTag = t; }
+      if (isTagRelevant(t,p)) { score += 3; if (!matchedTag) matchedTag = t; }
     });
     if (e.safety) score += 5; // avertisment de siguranță — nu scade niciodată cu experiența
     if (!e.safety) {
@@ -308,6 +312,7 @@ function buildDiagnostic(){
   safetyOnes.forEach(s => priorityMap.set(s.e.id, s));
   const priority = [...priorityMap.values()].sort((a,b) => b.score-a.score).slice(0,6);
   const priorityIds = new Set(priority.map(s=>s.e.id));
+  const activeCats = CAT_ORDER.filter(c => relevant.some(e => e.cat===c));
   const restByCat = {};
   activeCats.forEach(c => { restByCat[c] = relevant.filter(e => e.cat===c && !priorityIds.has(e.id)); });
   return { activeCats, relevant, priority, restByCat };
@@ -354,6 +359,8 @@ function renderErrCard(entry, isPriority){
         <div class="err-title">${esc(e.title)}</div>
         ${isPriority?`<div class="err-why">Te privește ${esc(reason)}</div>`:''}
         <div class="err-text">${esc(e.text)}</div>
+        ${e.prevent?`<div class="err-prevent"><b>De prevenit:</b> ${esc(e.prevent)}</div>`:''}
+        ${e.safetyNote?`<div class="err-safetynote"><b>Verificat tehnic:</b> ${esc(e.safetyNote)}</div>`:''}
       </div>
     </div>
   </div>`;
