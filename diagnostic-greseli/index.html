@@ -166,7 +166,7 @@ window.ERRORS = [
  {id:'e5',cat:'E',catLabel:'Baie și rosturi',title:'Chiuveta etanșată din nou tot are scurgere mică',text:'Siliconul are nevoie de 24 de ore complet uscat fără apă — dacă a fost udată mai devreme, etanșarea nu s-a întărit corect, refă.',prevent:'Lasă siliconul 24 de ore complet uscat, fără contact cu apa, înainte de prima utilizare.',tags:['baie']},
  {id:'e6',cat:'E',catLabel:'Baie și rosturi',title:'Vopseaua de rosturi colorată s-a dus pe faianță',text:'Șterge imediat cu o cârpă umedă înainte să se usuce; dacă s-a uscat deja, folosește alcool izopropilic pe un colț discret mai întâi.',prevent:'Lucrează cu o cârpă umedă la îndemână chiar din timpul aplicării, nu abia după ce ai pătat faianța.',tags:['baie']},
  // F — Electricitate și iluminat
- {id:'f1',cat:'F',catLabel:'Electricitate și iluminat',title:'Lustra nouă nu pornește după montaj',text:'Verifică din nou poza cu cablajul vechi — cel mai des firul de nul și cel de fază sunt inversate față de poziția inițială.',prevent:'Fotografiază cablajul vechi ÎNAINTE de demontare — e singura ta referință sigură la montaj.',safetyNote:'Completare de siguranță: verifică firele DOAR cu siguranța oprită de la tablou, niciodată cu curentul pornit — regula de la „Pregătire și siguranță" se aplică și aici, nu doar la montaj, ci și la diagnosticare.',tags:['electric'],safety:true},
+ {id:'f1',cat:'F',catLabel:'Electricitate și iluminat',title:'Lustra nouă nu pornește după montaj',text:'Verifică din nou poza cu cablajul vechi — cel mai des firul de nul și cel de fază sunt inversate față de poziția inițială.',prevent:'Fotografiază cablajul vechi ÎNAINTE de demontare, ca reper — dar o poză singură nu confirmă o conexiune sigură, vezi completarea de mai jos.',safetyNote:'Completare de siguranță: o fotografie a cablajului vechi NU e o referință suficientă și nu garantează o conexiune sigură — arată doar cum arăta înainte, nu dacă era corect sau dacă circuitul e sub tensiune acum. Lucrările la cablaj electric necesită: izolarea completă a circuitului (siguranța oprită de la tablou), verificarea ABSENȚEI tensiunii cu un tester/creion de fază înainte să atingi firele, și, dacă ceva nu e clar sau nu ești sigură 100% de fiecare pas, un electrician autorizat — nu continua montajul „după poză" dacă apare orice nelămurire.',tags:['electric'],safety:true},
  {id:'f2',cat:'F',catLabel:'Electricitate și iluminat',title:'Banda LED nu se aprinde la jumătatea ei',text:'Banda a fost tăiată în afara punctelor marcate — taie mereu exact pe liniile indicate de producător, nu oriunde.',prevent:'Verifică liniile de tăiere marcate de producător înainte de a tăia, nu din ochi.',tags:['electric']},
  {id:'f3',cat:'F',catLabel:'Electricitate și iluminat',title:'Senzorul de mișcare se declanșează fals, tot timpul',text:'Reduce sensibilitatea din șurubul de reglaj, sau mută-l departe de surse de aer cald (calorifer, ventilație).',prevent:'Montează senzorul departe de calorifer/ventilație din prima — repoziționarea ulterioară e mai greu de accesat.',tags:['electric']},
  {id:'f4',cat:'F',catLabel:'Electricitate și iluminat',title:'Becurile cumpărate nu dau aceeași lumină peste tot',text:'Verifică temperatura de culoare pe ambalaj (K) — amestecarea 3000K cu 4000K în aceeași cameră se vede imediat.',prevent:'Verifică temperatura de culoare (K) pe toate becurile ÎNAINTE de a le cumpăra pentru aceeași cameră.',tags:['electric']},
@@ -305,12 +305,16 @@ function buildDiagnostic(){
     return { e, score: Math.max(score,0), matchedTag };
   });
   scored.sort((a,b) => b.score-a.score);
-  const topByScore = scored.slice(0,5).filter(s => s.score>0);
-  const safetyOnes = scored.filter(s => s.e.safety);
-  const priorityMap = new Map();
-  topByScore.forEach(s => priorityMap.set(s.e.id, s));
-  safetyOnes.forEach(s => priorityMap.set(s.e.id, s));
-  const priority = [...priorityMap.values()].sort((a,b) => b.score-a.score).slice(0,6);
+  // Siguranța NICIODATĂ nu depinde de un slice final — toate greșelile de
+  // siguranță relevante intră necondiționat, ÎNAINTE de a completa restul
+  // locurilor după scor (bug real găsit: un slice(0,6) la final putea tăia o
+  // siguranță cu scor mic, chiar dacă era deja în "priority", pentru că alte
+  // 5-6 greșeli non-siguranță cu scor mai mare umpleau toate locurile întâi).
+  const TARGET = 6;
+  const safetyAll = scored.filter(s => s.e.safety); // necondiționat, fără cap
+  const nonSafetyTop = scored.filter(s => !s.e.safety && s.score>0);
+  const remainingSlots = Math.max(TARGET - safetyAll.length, 0);
+  const priority = [...safetyAll, ...nonSafetyTop.slice(0,remainingSlots)].sort((a,b) => b.score-a.score);
   const priorityIds = new Set(priority.map(s=>s.e.id));
   const activeCats = CAT_ORDER.filter(c => relevant.some(e => e.cat===c));
   const restByCat = {};
