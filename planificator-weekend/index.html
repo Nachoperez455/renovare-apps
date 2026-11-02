@@ -3,14 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#382733">
-<meta name="description" content="Alege sarcinile proiectului tău și primești un orar real, sâmbătă și duminică — nu o listă, un plan.">
+<meta name="theme-color" content="#3a4a35">
+<meta name="description" content="Planificator vizual pentru un ambient, cu etape reale (pregătire, uscare, finisaj) și un orar inteligent pe sâmbătă și duminică.">
 <title>Planificatorul Weekendului Tău — Renovare Rezolvată</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap');
 :root{
-  --ink:#34272f;--muted:#796c70;--bg:#faf7f2;--paper:#fffefa;--line:#e8e0d8;
-  --accent:#92563d;--accent-soft:#f3e6da;--dark:#382733;--radius:18px;
+  --ink:#2f362b;--muted:#6f7763;--bg:#f7f4ea;--paper:#fffefc;--line:#e4e0ce;
+  --sage:#6f8761;--sage-soft:#e7ebe0;--dark:#3a4a35;--radius:18px;
+  --terra:#b5633c;--terra-soft:#f3e2d6;
   --good:#5b7a5e;--good-soft:#e7eee6;--warn:#a65d3a;--warn-soft:#f5e3d6;
 }
 *{box-sizing:border-box}
@@ -22,56 +23,88 @@ p{margin:0}
 button{font-family:inherit;cursor:pointer}
 .wrap{max-width:640px;margin:0 auto;padding:0 18px}
 
-header.top{background:var(--dark);color:#fff;padding:22px 18px 26px;text-align:center}
-header.top .kicker{font-family:'Manrope',sans-serif;font-weight:700;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-soft);opacity:.85}
-header.top h1{font-size:25px;color:#fff;margin:10px 0 8px}
-header.top p{font-size:14px;color:#e5d9ce;max-width:36ch;margin:0 auto}
+header.top{position:relative;background:linear-gradient(165deg,var(--dark),#28331f);color:#fff;padding:0;overflow:hidden}
+header.top .photo{width:100%;height:150px;object-fit:cover;display:block;opacity:.55;filter:saturate(1.05)}
+header.top .photo-fallback{width:100%;height:150px;background:linear-gradient(135deg,#4c5c42,#2c3826)}
+header.top .content{padding:18px 18px 24px;text-align:center;margin-top:-54px;position:relative}
+header.top .kicker{font-family:'Manrope',sans-serif;font-weight:700;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--terra-soft);opacity:.9}
+header.top h1{font-size:24px;color:#fff;margin:8px 0 6px}
+header.top p{font-size:13.5px;color:#e4e8df;max-width:36ch;margin:0 auto}
 
 nav.nav{display:flex;gap:6px;overflow-x:auto;padding:14px 18px 0;max-width:640px;margin:0 auto;scrollbar-width:none}
 nav.nav::-webkit-scrollbar{display:none}
-nav.nav button{flex:0 0 auto;border:1px solid var(--line);background:var(--paper);color:var(--muted);font-weight:600;font-size:13px;padding:9px 14px;border-radius:100px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:all .15s ease}
-nav.nav button .step-no{width:18px;height:18px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-size:11px;font-weight:700;display:grid;place-items:center;flex:0 0 auto}
-nav.nav button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+nav.nav button{flex:0 0 auto;border:1px solid var(--line);background:var(--paper);color:var(--muted);font-weight:600;font-size:12.5px;padding:9px 13px;border-radius:100px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:all .15s ease}
+nav.nav button .step-no{width:18px;height:18px;border-radius:50%;background:var(--sage-soft);color:var(--sage);font-size:11px;font-weight:700;display:grid;place-items:center;flex:0 0 auto}
+nav.nav button.active{background:var(--sage);color:#fff;border-color:var(--sage)}
 nav.nav button.active .step-no{background:rgba(255,255,255,.25);color:#fff}
 
 main{padding:20px 0 0}
-.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-bottom:14px;box-shadow:0 10px 30px -18px rgba(56,39,51,.18)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-bottom:14px;box-shadow:0 10px 30px -18px rgba(47,54,43,.16)}
 .card h2{font-size:18px;margin-bottom:6px}
 .card .hint{color:var(--muted);font-size:13px;margin-bottom:14px}
 
-.cat-label{font-family:'Manrope',sans-serif;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:16px 0 8px}
-.cat-label:first-child{margin-top:0}
-.task{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid var(--line)}
-.task:first-of-type{border-top:0}
-.task label{display:flex;align-items:center;gap:12px;flex:1;cursor:pointer;user-select:none;-webkit-user-select:none}
-.task input[type=checkbox]{width:21px;height:21px;accent-color:var(--accent);flex:0 0 auto}
-.task .t-name{font-weight:600;font-size:14.5px}
-.task .t-dur{color:var(--muted);font-size:12px;white-space:nowrap}
+.room-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.room-chip{border:1.5px solid var(--line);background:var(--bg);border-radius:14px;padding:12px 10px;text-align:center;font-weight:600;font-size:13.5px;color:var(--ink)}
+.room-chip.on{border-color:var(--sage);background:var(--sage-soft);color:var(--dark)}
 
-.timeline-day{border-top:1px solid var(--line);padding:14px 0}
-.timeline-day:first-of-type{border-top:0}
-.timeline-day h3{font-size:16px;margin-bottom:4px}
-.timeline-day .day-total{color:var(--muted);font-size:12px;margin-bottom:10px}
-.tl-item{display:flex;gap:12px;padding:9px 0;border-top:1px dashed var(--line)}
-.tl-item:first-of-type{border-top:0}
-.tl-item .tl-time{font-family:'Manrope',sans-serif;font-weight:700;font-size:12.5px;color:var(--accent);white-space:nowrap;width:92px;flex:0 0 auto}
-.tl-item .tl-name{flex:1;font-size:14px}
-.tl-item.done .tl-name{text-decoration:line-through;color:var(--muted)}
-.tl-item input[type=checkbox]{width:19px;height:19px;accent-color:var(--good);flex:0 0 auto;margin-top:1px}
-.lunch{color:var(--muted);font-size:12px;font-style:italic;padding:6px 0;text-align:center}
+.xform-card{border:1.5px solid var(--line);border-radius:14px;padding:12px 13px;margin-top:10px;background:var(--bg)}
+.xform-card.on{border-color:var(--sage);background:#fff}
+.xform-card>label{display:flex;align-items:center;gap:10px;cursor:pointer;font-weight:700;font-size:14px}
+.xform-card input[type=checkbox]{width:19px;height:19px;accent-color:var(--sage);flex:0 0 auto}
+.xform-meta{color:var(--muted);font-size:12px;margin:4px 0 0 29px}
+.phase-edit{margin:10px 0 0 29px;display:flex;flex-direction:column;gap:6px}
+.phase-row{display:flex;align-items:center;gap:8px;font-size:12px}
+.phase-row .p-icon{width:20px;text-align:center}
+.phase-row .p-label{flex:1;color:var(--muted)}
+.phase-row input[type=number]{width:60px;border:1px solid var(--line);border-radius:7px;padding:5px 6px;font-size:12.5px;text-align:right}
+.phase-row .p-unit{color:var(--muted);font-size:11px;width:24px}
 
-.overflow-box{background:var(--warn-soft);border-radius:12px;padding:12px 14px;margin-top:10px}
-.overflow-box b{color:var(--warn)}
+.config-row{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:11px 14px;margin-bottom:10px}
+.config-row label{font-size:13px;font-weight:600;flex:1}
+.config-row input[type=number]{width:70px;border:1px solid var(--line);border-radius:8px;padding:7px 8px;font-size:14px;text-align:right;background:#fff}
+.people-toggle{display:flex;gap:8px}
+.people-toggle button{flex:1;border:1.5px solid var(--line);background:#fff;color:var(--muted);font-weight:700;padding:8px;border-radius:10px;font-size:13px}
+.people-toggle button.on{background:var(--sage);color:#fff;border-color:var(--sage)}
 
-.result-hero{background:linear-gradient(165deg,var(--dark),#2c2027);color:#fff;border-radius:var(--radius);padding:24px 20px;text-align:center;margin-bottom:14px}
-.result-hero .kicker{font-family:'Manrope',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-soft);opacity:.85}
-.result-hero .big{font-family:'Playfair Display',serif;font-weight:700;font-size:32px;margin:10px 0 4px;color:#fff;line-height:1.15}
-.result-hero .sub{font-size:13px;color:#d9c9bd}
+.result-hero{background:linear-gradient(165deg,var(--dark),#28331f);color:#fff;border-radius:var(--radius);padding:22px 20px;text-align:center;margin-bottom:14px}
+.result-hero .kicker{font-family:'Manrope',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--terra-soft);opacity:.9}
+.result-hero .big{font-family:'Playfair Display',serif;font-weight:700;font-size:30px;margin:8px 0 10px;color:#fff;line-height:1.15}
+.progress-bar{height:9px;border-radius:100px;background:rgba(255,255,255,.16);overflow:hidden;margin-bottom:6px}
+.progress-bar i{display:block;height:100%;background:linear-gradient(90deg,#8fae7e,#c7d9ba);border-radius:100px}
+.result-hero .sub{font-size:12.5px;color:#d7ddcc}
+
+.day-block{margin-bottom:16px}
+.day-block h3{font-size:17px;margin-bottom:2px}
+.day-block .day-sub{color:var(--muted);font-size:12px;margin-bottom:10px}
+.tl{position:relative;padding-left:26px}
+.tl::before{content:'';position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl-phase{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px}
+.tl-phase::before{content:'';position:absolute;left:-22px;top:14px;width:10px;height:10px;border-radius:50%;background:var(--sage);border:2px solid #fff;box-shadow:0 0 0 1px var(--line)}
+.tl-phase.uscare::before{background:var(--terra)}
+.tl-phase.done{opacity:.55}
+.tl-phase.done .tl-name{text-decoration:line-through}
+.tl-head{display:flex;align-items:center;gap:8px}
+.tl-head input[type=checkbox]{width:18px;height:18px;accent-color:var(--good);flex:0 0 auto}
+.tl-time{font-family:'Manrope',sans-serif;font-weight:700;font-size:11.5px;color:var(--sage);white-space:nowrap}
+.tl-phase.uscare .tl-time{color:var(--terra)}
+.tl-name{flex:1;font-size:13.5px;font-weight:600}
+.tl-xform{color:var(--muted);font-size:11px;margin:2px 0 0 26px}
+.tl-track{font-size:10.5px;font-weight:700;color:#fff;background:var(--sage);border-radius:100px;padding:2px 8px;flex:0 0 auto}
+
+.carryover-box{background:var(--terra-soft);border-radius:12px;padding:12px 14px;margin-top:10px}
+.carryover-box b{color:var(--terra)}
+.carryover-box ul{margin:8px 0 0;padding-left:18px;font-size:12.5px;line-height:1.6}
+
+.materials-cat{font-family:'Manrope',sans-serif;font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);margin:14px 0 6px}
+.materials-cat:first-child{margin-top:0}
+.mat-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:13.5px}
+.mat-item:first-of-type{border-top:0}
+.mat-item input[type=checkbox]{width:18px;height:18px;accent-color:var(--sage);flex:0 0 auto}
 
 .empty{text-align:center;color:var(--muted);font-size:14px;padding:30px 10px}
 .actions{display:flex;gap:10px;margin-top:4px}
 .btn{display:flex;align-items:center;justify-content:center;gap:8px;flex:1;padding:14px 16px;border-radius:12px;border:0;font-weight:700;font-size:14.5px}
-.btn-primary{background:var(--accent);color:#fff}
+.btn-primary{background:var(--sage);color:#fff}
 .btn-ghost{background:var(--bg);color:var(--ink);border:1px solid var(--line)}
 
 .disclaimer{font-size:11px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.5}
@@ -87,45 +120,101 @@ main{padding:20px 0 0}
 </head>
 <body>
 <header class="top">
-  <span class="kicker">✦ Doar pentru cei care au cumpărat deja ✦</span>
-  <h1>Planificatorul <span class="serif-em">Weekendului Tău</span></h1>
-  <p>Alege ce ai de făcut — primești un orar real, sâmbătă și duminică, nu încă o listă de idei.</p>
+  <div id="header-photo"></div>
+  <div class="content">
+    <span class="kicker">✦ Doar pentru cei care au cumpărat deja ✦</span>
+    <h1>Planificatorul <span class="serif-em">Weekendului Tău</span></h1>
+    <p>Organizatoarea ta personală: ce faci, când, și cum avansezi fără să pierzi timpul.</p>
+  </div>
 </header>
 
 <nav class="nav" id="nav"></nav>
 <main class="wrap" id="main"></main>
 
 <script>
-/* Duratele sunt estimări orientative de ritm de lucru DIY obișnuit (nu prețuri de
-   piață de cercetat — sunt timpi de execuție, nu costuri). Fiecare utilizatoare
-   lucrează în ritmul ei; orarul e un punct de plecare, nu o normă fixă. */
+/* Fazele și duratele active sunt estimări orientative de ritm de lucru DIY
+   obișnuit — editabile de utilizatoare. Timpii de uscare sunt recomandări
+   uzuale de produs (vopsea, adeziv, silicon) — variază real după marcă și
+   condiții (temperatură, umiditate); utilizatoarea îi poate ajusta. */
 window.PLAN_DATA = {
-  dayStart: '09:00', lunchStart: '13:00', lunchEnd: '14:00', dayEnd: '18:00',
-  // 09:00-13:00 (240 min) + 14:00-18:00 (240 min) = 480 min/zi, 960 min/weekend
-  categories: [
-    { id:'pereti', label:'Pereți și vopsit', tasks:[
-      { id:'vopsit-perete', label:'Vopsit un perete', min:90 },
-      { id:'vopsit-camera', label:'Vopsit o cameră întreagă (tavan + pereți)', min:240 },
-      { id:'reparat-fisura', label:'Reparat o fisură sau o gaură mică în perete', min:30 },
-    ]},
-    { id:'suprafete', label:'Suprafețe și finisaje', tasks:[
-      { id:'folie-fronturi', label:'Montat folie autoadezivă pe fronturi/mobilă', min:90 },
-      { id:'silicon', label:'Schimbat siliconul la baie sau bucătărie', min:45 },
-      { id:'rosturi', label:'Curățat rosturile de gresie/faianță', min:45 },
-      { id:'lustruit-parchet', label:'Curățat și lustruit parchetul', min:60 },
-      { id:'covor', label:'Montat un covor sau un preș nou', min:20 },
-    ]},
-    { id:'montaj', label:'Montaj și organizare', tasks:[
-      { id:'rafturi', label:'Montat rafturi sau etajere', min:60 },
-      { id:'baterie', label:'Montat o baterie nouă', min:45 },
-      { id:'tablouri', label:'Agățat tablouri sau oglinzi', min:30 },
-      { id:'mobila-noua', label:'Asamblat o piesă de mobilă nouă', min:90 },
-      { id:'organizat-dulap', label:'Organizat un dulap sau un sertar', min:60 },
-    ]},
-    { id:'final', label:'Final', tasks:[
-      { id:'plante', label:'Aranjat plante și accente decorative', min:30 },
-      { id:'curatenie', label:'Curățenie generală după lucru', min:90 },
-    ]}
+  headerPhoto: 'https://aekpgsbqjzqntlbucbts.supabase.co/storage/v1/object/public/store-resources/08d76286-3f15-4b95-a6c9-d53efa7cd384/1793583109935_planificator-weekend-header-a749e3fe.png',
+  rooms: [
+    { id:'bucatarie', label:'Bucătărie' },
+    { id:'baie', label:'Baie' },
+    { id:'dormitor', label:'Dormitor' },
+    { id:'living', label:'Living' },
+    { id:'hol', label:'Hol / Intrare' },
+    { id:'birou', label:'Birou' }
+  ],
+  xforms: [
+    { id:'vopsit-perete', label:'Vopsit un perete', rooms:['bucatarie','baie','dormitor','living','hol','birou'],
+      materials:['Vopsea lavabilă','Rolă + pensulă','Folie de protecție','Bandă de mascare'],
+      phases:[
+        { id:'prep', type:'activ', label:'Pregătire suprafață (protejare, curățare)', min:30 },
+        { id:'coat1', type:'activ', label:'Primul strat de vopsea', min:60 },
+        { id:'dry1', type:'uscare', label:'Uscare primul strat', min:120 },
+        { id:'coat2', type:'activ', label:'Al doilea strat de vopsea', min:60 },
+        { id:'dryf', type:'uscare', label:'Uscare finală', min:60 },
+        { id:'clean', type:'activ', label:'Curățenie', min:15 }
+      ]},
+    { id:'vopsit-camera', label:'Vopsit o cameră întreagă', rooms:['bucatarie','baie','dormitor','living','hol','birou'],
+      materials:['Vopsea lavabilă (cantitate mai mare)','Rolă + pensulă','Folie de protecție','Bandă de mascare'],
+      phases:[
+        { id:'prep', type:'activ', label:'Pregătire suprafață (protejare, curățare)', min:45 },
+        { id:'coat1', type:'activ', label:'Primul strat de vopsea', min:120 },
+        { id:'dry1', type:'uscare', label:'Uscare primul strat', min:150 },
+        { id:'coat2', type:'activ', label:'Al doilea strat de vopsea', min:120 },
+        { id:'dryf', type:'uscare', label:'Uscare finală', min:90 },
+        { id:'clean', type:'activ', label:'Curățenie', min:25 }
+      ]},
+    { id:'montaj-faianta', label:'Montaj gresie/faianță', rooms:['bucatarie','baie'],
+      materials:['Gresie/faianță','Adeziv','Chit de rosturi','Spatulă dințată','Cruciulițe distanțiere'],
+      phases:[
+        { id:'prep', type:'activ', label:'Curățare și amorsare suprafață', min:45 },
+        { id:'dryA', type:'uscare', label:'Uscare amorsă', min:60 },
+        { id:'lipire', type:'activ', label:'Lipit gresie/faianță', min:180 },
+        { id:'dryAd', type:'uscare', label:'Uscare adeziv (nu călca/atinge zona)', min:1440 },
+        { id:'chit', type:'activ', label:'Chituit rosturi', min:60 },
+        { id:'dryC', type:'uscare', label:'Uscare chit', min:120 },
+        { id:'clean', type:'activ', label:'Curățenie', min:20 }
+      ]},
+    { id:'pardoseala', label:'Montaj pardoseală laminată', rooms:['bucatarie','dormitor','living','hol'],
+      materials:['Parchet laminat','Folie izolatoare','Plinte'],
+      phases:[
+        { id:'prep', type:'activ', label:'Pregătire și folie izolatoare', min:30 },
+        { id:'montaj', type:'activ', label:'Montaj pardoseală', min:180 },
+        { id:'clean', type:'activ', label:'Curățenie', min:20 }
+      ]},
+    { id:'folie-mobila', label:'Folie autoadezivă pe fronturi', rooms:['bucatarie','living','birou'],
+      materials:['Folie autoadezivă','Cutter','Racletă'],
+      phases:[
+        { id:'prep', type:'activ', label:'Curățare suprafață fronturi', min:20 },
+        { id:'aplic', type:'activ', label:'Aplicare folie autoadezivă', min:70 },
+        { id:'clean', type:'activ', label:'Curățenie', min:10 }
+      ]},
+    { id:'mobilier', label:'Asamblat mobilier nou', rooms:['bucatarie','baie','dormitor','living','hol','birou'],
+      materials:['Piese mobilier (kit)','Șurubelniță/bormașină','Nivelă'],
+      phases:[
+        { id:'prep', type:'activ', label:'Organizare piese și instrucțiuni', min:15 },
+        { id:'asam', type:'activ', label:'Asamblare', min:90 },
+        { id:'fix', type:'activ', label:'Fixare/ancorare de perete', min:30 },
+        { id:'clean', type:'activ', label:'Curățenie', min:10 }
+      ]},
+    { id:'silicon', label:'Schimbat silicon sanitar', rooms:['baie','bucatarie'],
+      materials:['Silicon sanitar','Pistol de silicon','Alcool pentru degresat'],
+      phases:[
+        { id:'prep', type:'activ', label:'Scoatere silicon vechi', min:20 },
+        { id:'aplic', type:'activ', label:'Aplicare silicon nou', min:20 },
+        { id:'dry', type:'uscare', label:'Uscare (evită apa în zonă)', min:1440 },
+        { id:'clean', type:'activ', label:'Curățenie', min:5 }
+      ]},
+    { id:'rafturi', label:'Montat rafturi/etajere', rooms:['bucatarie','baie','dormitor','living','hol','birou'],
+      materials:['Rafturi/etajere','Dibluri + șuruburi','Bormașină','Nivelă'],
+      phases:[
+        { id:'prep', type:'activ', label:'Măsurare și marcare', min:15 },
+        { id:'montaj', type:'activ', label:'Montaj rafturi', min:45 },
+        { id:'clean', type:'activ', label:'Curățenie', min:10 }
+      ]}
   ]
 };
 </script>
@@ -134,19 +223,34 @@ window.PLAN_DATA = {
 (() => {
 'use strict';
 const DATA = window.PLAN_DATA;
-const KEY = 'renovare-rezolvata:planificator-weekend:v1';
-const ALL_TASKS = DATA.categories.flatMap(c => c.tasks.map(t => ({ ...t, cat: c.label })));
+const KEY = 'renovare-rezolvata:planificator-weekend-v2:v1';
 const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-
-function toMin(hhmm){ const [h,m] = hhmm.split(':').map(Number); return h*60+m; }
-function toHHMM(min){ const h = Math.floor(min/60)%24, m = min%60; return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0'); }
-const DAY_BLOCK_MIN = (toMin(DATA.lunchStart)-toMin(DATA.dayStart)) + (toMin(DATA.dayEnd)-toMin(DATA.lunchEnd)); // 480
+const num = (v, def) => { const n = parseFloat(v); return isFinite(n) && n>=0 ? n : def; };
+const PHASE_ICON = { prep:'🧰', activ_rep:'🔧', uscare:'⏳', finisaj:'✨', clean:'🧹' };
+function iconFor(phase, idx, arr){
+  if (phase.type==='uscare') return '⏳';
+  if (phase.id==='clean') return '🧹';
+  if (idx===0) return '🧰';
+  if (idx===arr.length-1 || /chit|coat2|dryf|fix/.test(phase.id)) return '✨';
+  return '🔧';
+}
+function toHHMM(absMin){
+  const dayMin = ((absMin % 1440) + 1440) % 1440;
+  const h = Math.floor(dayMin/60), m = dayMin%60;
+  return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');
+}
+function fmtDur(min){ return min>=60 ? (Math.round(min/60*10)/10)+' h' : min+' min'; }
 
 function initial(){
-  return { tab:'sarcini', selected:{}, done:{} };
-  // selected[taskId] = true; done[taskId] = true (bifat pe orar)
+  return { tab:'ambient', room:null, selected:{}, satHours:6, sunHours:6, people:1, phaseMin:{}, done:{}, matBought:{} };
+  // selected[xformId]=true; phaseMin[xformId+'|'+phaseId]=minutes (override); done[xformId+'|'+phaseId]=true
 }
 let state = initial(), storageOK = true;
+
+function phaseMin(xform, phase){
+  const key = xform.id+'|'+phase.id;
+  return state.phaseMin[key] !== undefined ? state.phaseMin[key] : phase.min;
+}
 
 function save(){
   try { localStorage.setItem(KEY, JSON.stringify(state)); storageOK = true; }
@@ -159,53 +263,126 @@ function load(){
     if (!raw) return;
     const parsed = JSON.parse(raw);
     if (!parsed) return;
-    const validIds = new Set(ALL_TASKS.map(t => t.id));
-    const cleanSel = {}, cleanDone = {};
+    const room = DATA.rooms.find(r => r.id === parsed.room);
+    state.room = room ? room.id : null;
+    const sel = {};
     if (parsed.selected && typeof parsed.selected === 'object') {
-      Object.keys(parsed.selected).forEach(id => { if (validIds.has(id) && parsed.selected[id] === true) cleanSel[id] = true; });
+      Object.keys(parsed.selected).forEach(id => {
+        const x = DATA.xforms.find(x => x.id === id);
+        if (x && parsed.selected[id] === true && state.room && x.rooms.includes(state.room)) sel[id] = true;
+      });
     }
-    if (parsed.done && typeof parsed.done === 'object') {
-      Object.keys(parsed.done).forEach(id => { if (validIds.has(id) && parsed.done[id] === true) cleanDone[id] = true; });
-    }
-    state.selected = cleanSel;
-    state.done = cleanDone;
-    if (['sarcini','orar'].includes(parsed.tab)) state.tab = parsed.tab;
+    state.selected = sel;
+    state.satHours = num(parsed.satHours, 6);
+    state.sunHours = num(parsed.sunHours, 6);
+    state.people = [1,2].includes(parsed.people) ? parsed.people : 1;
+    state.phaseMin = (parsed.phaseMin && typeof parsed.phaseMin === 'object') ? parsed.phaseMin : {};
+    state.done = (parsed.done && typeof parsed.done === 'object') ? parsed.done : {};
+    state.matBought = (parsed.matBought && typeof parsed.matBought === 'object') ? parsed.matBought : {};
+    if (['ambient','orar','materiale'].includes(parsed.tab)) state.tab = parsed.tab;
   } catch(_) { storageOK = false; }
 }
 const saveText = () => storageOK
   ? 'Salvat automat pe acest dispozitiv.'
   : 'Salvarea locală nu e disponibilă pe acest browser — alegerile se pierd la închidere.';
 
-/* ---- distribuie sarcinile alese în blocuri reale (dimineață/după-amiază ×
-   sâmbătă/duminică) — primul bloc cu loc liber REAL câștigă fiecare sarcină, ca
-   să nu se "piardă" timp mort înainte de prânz fără ca scheduler-ul să observe
-   (bug real găsit: o sarcină ajungea să înceapă după ora de închidere a zilei). */
-function buildSchedule(){
-  const tasks = ALL_TASKS.filter(t => state.selected[t.id]);
-  const blockDefs = [
-    { day:0, label:'Sâmbătă', start: toMin(DATA.dayStart), end: toMin(DATA.lunchStart) },
-    { day:0, label:'Sâmbătă', start: toMin(DATA.lunchEnd), end: toMin(DATA.dayEnd) },
-    { day:1, label:'Duminică', start: toMin(DATA.dayStart), end: toMin(DATA.lunchStart) },
-    { day:1, label:'Duminică', start: toMin(DATA.lunchEnd), end: toMin(DATA.dayEnd) }
+/* ---- scheduler: faze active + uscare, 1-2 persoane (tracks), 2 ferestre de
+   timp (sâmbătă/duminică) cu lungimea EXACTĂ pe care a dat-o utilizatoarea —
+   nicio disponibilitate inventată. ---- */
+function buildPlan(){
+  const xforms = DATA.xforms.filter(x => state.selected[x.id]);
+  if (!xforms.length) return null;
+
+  // repartizează transformările pe track-uri (cele mai lungi primele, echilibrat)
+  const totalActiv = x => x.phases.filter(p=>p.type==='activ').reduce((s,p)=>s+phaseMin(x,p),0);
+  const ordered = [...xforms].sort((a,b) => totalActiv(b)-totalActiv(a));
+  const trackCount = state.people===2 ? 2 : 1;
+  const tracks = Array.from({length:trackCount}, () => ({ items:[], load:0 }));
+  ordered.forEach(x => {
+    const t = tracks.reduce((min,t) => t.load<min.load ? t : min, tracks[0]);
+    t.items.push({ x, phaseIdx:0, readyAt:0, placed:[] });
+    t.load += totalActiv(x);
+  });
+
+  const DAY_START_HOUR = 9; // afișaj: presupunem că ziua de lucru începe la 09:00
+  const satStart=DAY_START_HOUR*60, satEnd=satStart+state.satHours*60;
+  const sunStart=1440+DAY_START_HOUR*60, sunEnd=sunStart+state.sunHours*60;
+  const windows = [[satStart,satEnd,'Sâmbătă'],[sunStart,sunEnd,'Duminică']];
+
+  tracks.forEach(track => {
+    windows.forEach(([wStart,wEnd]) => {
+      let cursor = wStart;
+      let progressed = true;
+      while (cursor < wEnd && progressed) {
+        progressed = false;
+        // procesează instant toate fazele de uscare ajunse la rând (nu consumă cursor)
+        track.items.forEach(it => {
+          while (it.phaseIdx < it.x.phases.length && it.x.phases[it.phaseIdx].type==='uscare') {
+            const ph = it.x.phases[it.phaseIdx];
+            const dur = phaseMin(it.x, ph);
+            it.placed.push({ phase:ph, x:it.x, start:it.readyAt, end:it.readyAt+dur, absolute:true });
+            it.readyAt = it.readyAt + dur;
+            it.phaseIdx++;
+            progressed = true;
+          }
+        });
+        // alege faza activă READY cu cel mai mic readyAt care încape în fereastra curentă
+        let best = null;
+        track.items.forEach(it => {
+          if (it.phaseIdx >= it.x.phases.length) return;
+          const ph = it.x.phases[it.phaseIdx];
+          if (ph.type !== 'activ') return;
+          const startAt = Math.max(cursor, it.readyAt);
+          const dur = phaseMin(it.x, ph);
+          if (startAt + dur > wEnd) return; // nu încape în fereastra asta
+          if (!best || startAt < best.startAt) best = { it, ph, startAt, dur };
+        });
+        if (best) {
+          const { it, ph, startAt, dur } = best;
+          it.placed.push({ phase:ph, x:it.x, start:startAt, end:startAt+dur, absolute:false });
+          it.readyAt = startAt+dur;
+          it.phaseIdx++;
+          cursor = startAt+dur;
+          progressed = true;
+        }
+      }
+    });
+  });
+
+  // colectează rezultatul: toate fazele plasate (pe toate track-urile), ordonate cronologic
+  const allPlaced = [];
+  tracks.forEach((track,ti) => track.items.forEach(it => it.placed.forEach(p => allPlaced.push({ ...p, track:ti }))));
+  allPlaced.sort((a,b) => a.start-b.start);
+
+  const days = [
+    { label:'Sâmbătă', start:satStart, end:satEnd, items: allPlaced.filter(p=>p.start<satEnd && p.start>=satStart) },
+    { label:'Duminică', start:sunStart, end:sunEnd, items: allPlaced.filter(p=>p.start>=sunStart && p.start<sunEnd) }
   ];
-  const blocks = blockDefs.map(b => ({ ...b, cursor: b.start, items:[] }));
-  const overflow = [];
-  tasks.forEach(t => {
-    const block = blocks.find(b => (b.end - b.cursor) >= t.min);
-    if (!block) { overflow.push(t); return; }
-    const item = { ...t, start: block.cursor, end: block.cursor + t.min };
-    block.cursor += t.min;
-    block.items.push(item);
-  });
-  const days = [0,1].map(d => {
-    const dayBlocks = blocks.filter(b => b.day === d);
-    const items = dayBlocks.flatMap(b => b.items);
-    return { label: dayBlocks[0].label, items, usedMin: items.reduce((s,i)=>s+(i.end-i.start),0) };
-  });
-  return { days, overflow, totalTasks: tasks.length, totalMin: tasks.reduce((s,t)=>s+t.min,0) };
+
+  // ce transformări NU s-au terminat și de ce — distinge cauza REALĂ: dacă
+  // pasul următor e blocat de uscare dinainte încheiată abia după weekend,
+  // asta e cauza (nu "nu ai avut ore"), chiar dacă mai aveai ore libere.
+  const carryover = [];
+  tracks.forEach(track => track.items.forEach(it => {
+    if (it.phaseIdx < it.x.phases.length) {
+      const nextPh = it.x.phases[it.phaseIdx];
+      let reason;
+      if (nextPh.type==='uscare') {
+        reason = `mai are nevoie de ${fmtDur(phaseMin(it.x,nextPh))} de uscare înainte de pasul următor`;
+      } else if (it.readyAt >= sunEnd) {
+        reason = `pasul anterior de uscare se termină abia după acest weekend — reia de aici data viitoare`;
+      } else {
+        reason = `nu a încăput în orele disponibile din acest weekend`;
+      }
+      carryover.push({ x: it.x, reason });
+    }
+  }));
+
+  const totalActivAll = xforms.reduce((s,x)=>s+totalActiv(x),0);
+  return { days, carryover, totalActivAll, xforms, trackCount };
 }
 
-const tabs = [['sarcini','Alege sarcinile'],['orar','Orarul tău']];
+const tabs = [['ambient','Ambientul tău'],['orar','Orarul tău'],['materiale','Materiale']];
 function renderNav(){
   const nav = document.getElementById('nav');
   nav.innerHTML = tabs.map(([id,title],i) =>
@@ -215,94 +392,176 @@ function renderNav(){
 }
 function goTab(id){ state.tab = id; save(); render(); window.scrollTo({top:0,behavior:'smooth'}); }
 
-function renderSarcini(){
+function renderAmbient(){
+  const roomXforms = state.room ? DATA.xforms.filter(x => x.rooms.includes(state.room)) : [];
   return `<div class="card">
-    <h2>Ce ai de făcut?</h2>
-    <p class="hint">Bifează tot ce vrei să faci — le aranjăm într-un orar pe sâmbătă și duminică, cu pauză de prânz.</p>
-    ${DATA.categories.map(cat => `
-      <div class="cat-label">${esc(cat.label)}</div>
-      ${cat.tasks.map(t => `<div class="task">
-        <label><input type="checkbox" data-task="${t.id}" ${state.selected[t.id]?'checked':''}>
-          <span class="t-name">${esc(t.label)}</span>
-        </label>
-        <span class="t-dur">~${t.min>=60?Math.round(t.min/60*10)/10+' h':t.min+' min'}</span>
-      </div>`).join('')}
-    `).join('')}
+    <h2>Ce ambient renovezi?</h2>
+    <p class="hint">Alege UN ambient — planul e gândit pentru un proiect concret, nu pentru toată casa deodată.</p>
+    <div class="room-grid">
+      ${DATA.rooms.map(r => `<button class="room-chip ${state.room===r.id?'on':''}" data-room="${r.id}">${esc(r.label)}</button>`).join('')}
+    </div>
   </div>
-  <div class="actions">
-    <button class="btn btn-primary" data-go-orar>Vezi orarul meu →</button>
+  ${state.room ? `<div class="card">
+    <h2>Ce vrei să transformi?</h2>
+    <p class="hint">Bifează una sau mai multe — poți edita durata fiecărei etape (sunt estimări, nu reguli fixe).</p>
+    ${roomXforms.map(x => renderXformCard(x)).join('')}
+  </div>
+  <div class="card">
+    <h2>Cât timp ai</h2>
+    <div class="config-row"><label>Ore disponibile sâmbătă</label><input type="number" min="0" max="12" step="0.5" id="sat-hours" value="${state.satHours}"></div>
+    <div class="config-row"><label>Ore disponibile duminică</label><input type="number" min="0" max="12" step="0.5" id="sun-hours" value="${state.sunHours}"></div>
+    <div class="config-row"><label>Câte persoane lucrează</label>
+      <div class="people-toggle"><button data-people="1" class="${state.people===1?'on':''}">1 persoană</button><button data-people="2" class="${state.people===2?'on':''}">2 persoane</button></div>
+    </div>
+  </div>
+  <div class="actions"><button class="btn btn-primary" data-go-orar>Vezi orarul meu →</button></div>` : ''}`;
+}
+
+function renderXformCard(x){
+  const on = !!state.selected[x.id];
+  return `<div class="xform-card ${on?'on':''}">
+    <label><input type="checkbox" data-xform="${x.id}" ${on?'checked':''}>${esc(x.label)}</label>
+    <div class="xform-meta">${x.phases.length} etape · activ total ${fmtDur(x.phases.filter(p=>p.type==='activ').reduce((s,p)=>s+phaseMin(x,p),0))}${x.phases.some(p=>p.type==='uscare')?' + uscare':''}</div>
+    ${on ? `<div class="phase-edit">
+      ${x.phases.map((p,i) => `<div class="phase-row">
+        <span class="p-icon">${iconFor(p,i,x.phases)}</span>
+        <span class="p-label">${esc(p.label)}</span>
+        <input type="number" min="0" step="5" data-phase-min data-xform="${x.id}" data-phase="${p.id}" value="${phaseMin(x,p)}">
+        <span class="p-unit">min</span>
+      </div>`).join('')}
+    </div>` : ''}
   </div>`;
 }
 
 function renderOrar(){
-  const sched = buildSchedule();
-  if (sched.totalTasks === 0) {
-    return `<div class="card"><div class="empty">Nu ai bifat nicio sarcină încă.<br>Întoarce-te la „Alege sarcinile” ca să vezi orarul.</div></div>
-    <div class="actions"><button class="btn btn-ghost" data-go-sarcini>← Alege sarcinile</button></div>`;
-  }
-  const totalH = Math.round(sched.totalMin/60*10)/10;
+  const plan = buildPlan();
+  if (!plan) return `<div class="card"><div class="empty">Nu ai ales nicio transformare încă.<br>Întoarce-te la „Ambientul tău” ca să vezi orarul.</div></div>
+    <div class="actions"><button class="btn btn-ghost" data-go-ambient>← Ambientul tău</button></div>`;
+
+  const allKeys = plan.days.flatMap(d => d.items.filter(i=>!i.absolute||true)).map(i => i.x.id+'|'+i.phase.id);
+  const doneCount = allKeys.filter(k => state.done[k]).length;
+  const pct = allKeys.length ? Math.round(doneCount/allKeys.length*100) : 0;
+
   return `<div class="result-hero">
-    <span class="kicker">Timp total de lucru</span>
-    <div class="big">${totalH} h</div>
-    <p class="sub">${sched.totalTasks} sarcin${sched.totalTasks>1?'i':'ă'}, distribuite pe weekend cu pauză de prânz</p>
+    <span class="kicker">Progresul tău</span>
+    <div class="big">${pct}%</div>
+    <div class="progress-bar"><i style="width:${pct}%"></i></div>
+    <p class="sub">${fmtDur(plan.totalActivAll)} de muncă activă · ${plan.trackCount===2?'2 persoane în paralel':'1 persoană'}</p>
   </div>
-  <div class="card">
-    <h2>Orarul tău</h2>
-    ${sched.days.filter(d=>d.items.length).map(day => `<div class="timeline-day">
-      <h3>${esc(day.label)}</h3>
-      <div class="day-total">${Math.round(day.usedMin/60*10)/10} h de lucru</div>
-      ${day.items.map((item,i) => {
-        const showLunch = i>0 && day.items[i-1].end <= toMin(DATA.lunchStart) && item.start >= toMin(DATA.lunchEnd);
-        const done = state.done[item.id] === true;
-        return (showLunch ? `<div class="lunch">— pauză de prânz —</div>` : '') +
-        `<div class="tl-item ${done?'done':''}">
-          <input type="checkbox" data-done="${item.id}" ${done?'checked':''}>
-          <span class="tl-time">${toHHMM(item.start)}–${toHHMM(item.end)}</span>
-          <span class="tl-name">${esc(item.label)}</span>
+  ${plan.days.map(day => day.items.length ? `<div class="card day-block">
+    <h3>${esc(day.label)}</h3>
+    <div class="day-sub">${day.items.filter(i=>i.phase.type==='activ').length} etape active</div>
+    <div class="tl">
+      ${day.items.map(item => {
+        const key = item.x.id+'|'+item.phase.id;
+        const done = state.done[key] === true;
+        return `<div class="tl-phase ${item.phase.type} ${done?'done':''}">
+          <div class="tl-head">
+            <input type="checkbox" data-done="${key}" ${done?'checked':''}>
+            <span class="tl-time">${item.phase.type==='uscare' && (item.end-item.start)>=1440 ? 'începe '+toHHMM(item.start)+' · '+fmtDur(item.end-item.start) : toHHMM(item.start)+'–'+toHHMM(item.end)}</span>
+            <span class="tl-name">${esc(item.phase.label)}</span>
+            ${plan.trackCount===2?`<span class="tl-track">P${item.track+1}</span>`:''}
+          </div>
+          <div class="tl-xform">${esc(item.x.label)}</div>
         </div>`;
       }).join('')}
-    </div>`).join('')}
-    ${sched.overflow.length ? `<div class="overflow-box"><b>Nu încap într-un singur weekend:</b> ${sched.overflow.map(t=>esc(t.label)).join(', ')}. Lasă-le pentru weekendul următor, nu le îngrămădi.</div>` : ''}
-  </div>
+    </div>
+  </div>` : '').join('')}
+  ${plan.carryover.length ? `<div class="card"><div class="carryover-box">
+    <b>Nu se termină complet în acest weekend:</b>
+    <ul>${plan.carryover.map(c => `<li>${esc(c.x.label)} — ${esc(c.reason)}</li>`).join('')}</ul>
+  </div></div>` : ''}
   <div class="actions">
-    <button class="btn btn-ghost" data-go-sarcini>← Modifică</button>
+    <button class="btn btn-ghost" data-go-ambient>← Modifică</button>
     <button class="btn btn-primary" data-print>Salvează ca PDF</button>
   </div>
-  <p class="disclaimer">Orar orientativ pe baza unui ritm de lucru DIY obișnuit (09:00–13:00 și 14:00–18:00, cu pauză de prânz) — ajustează-l după ritmul tău real.</p>`;
+  <p class="disclaimer">Orar orientativ pe baza duratelor pe care le-ai introdus — ritmul tău real poate varia. Timpii de uscare sunt recomandări uzuale de produs, nu garanții; verifică eticheta produsului tău.</p>`;
+}
+
+function renderMateriale(){
+  const xforms = DATA.xforms.filter(x => state.selected[x.id]);
+  if (!xforms.length) return `<div class="card"><div class="empty">Nu ai ales nicio transformare încă.</div></div>
+    <div class="actions"><button class="btn btn-ghost" data-go-ambient>← Ambientul tău</button></div>`;
+  return `<div class="card">
+    <h2>Ce ai nevoie</h2>
+    <p class="hint">Lista de materiale pentru transformările alese — bifează pe măsură ce le ai.</p>
+    ${xforms.map(x => `<div class="materials-cat">${esc(x.label)}</div>
+      ${x.materials.map((m,i) => {
+        const key = x.id+'|'+i;
+        const bought = state.matBought[key] === true;
+        return `<div class="mat-item"><input type="checkbox" data-mat="${key}" ${bought?'checked':''}><span style="${bought?'text-decoration:line-through;color:var(--muted)':''}">${esc(m)}</span></div>`;
+      }).join('')}
+    `).join('')}
+  </div>
+  <div class="actions"><button class="btn btn-ghost" data-go-ambient>← Modifică</button></div>`;
 }
 
 function render(){
   renderNav();
   const main = document.getElementById('main');
   const scrollY = window.scrollY;
-  main.innerHTML = (state.tab === 'orar' ? renderOrar() : renderSarcini())
-    + `<p class="save-status" data-save>${saveText()}</p>`;
+  const body = state.tab==='orar' ? renderOrar() : (state.tab==='materiale' ? renderMateriale() : renderAmbient());
+  main.innerHTML = body + `<p class="save-status" data-save>${saveText()}</p>`;
 
-  main.querySelectorAll('[data-task]').forEach(cb => {
-    cb.onchange = () => {
-      const id = cb.dataset.task;
-      if (cb.checked) state.selected[id] = true; else delete state.selected[id];
-      save(); render();
-    };
+  main.querySelectorAll('[data-room]').forEach(b => b.onclick = () => {
+    const newRoom = b.dataset.room;
+    if (state.room !== newRoom) { state.room = newRoom; state.selected = {}; }
+    save(); render();
   });
-  main.querySelectorAll('[data-done]').forEach(cb => {
-    cb.onchange = () => {
-      const id = cb.dataset.done;
-      if (cb.checked) state.done[id] = true; else delete state.done[id];
-      cb.closest('.tl-item').classList.toggle('done', cb.checked);
-      save();
-    };
+  main.querySelectorAll('[data-xform]').forEach(cb => cb.onchange = () => {
+    const id = cb.dataset.xform;
+    if (cb.checked) state.selected[id] = true; else delete state.selected[id];
+    save(); render();
   });
-  const goOrar = main.querySelector('[data-go-orar]');
-  if (goOrar) goOrar.onclick = () => goTab('orar');
-  const goSarcini = main.querySelector('[data-go-sarcini]');
-  if (goSarcini) goSarcini.onclick = () => goTab('sarcini');
-  const printBtn = main.querySelector('[data-print]');
-  if (printBtn) printBtn.onclick = () => window.print();
+  main.querySelectorAll('[data-phase-min]').forEach(inp => inp.oninput = () => {
+    const key = inp.dataset.xform+'|'+inp.dataset.phase;
+    state.phaseMin[key] = num(inp.value, undefined);
+    save();
+  });
+  const satInput = main.querySelector('#sat-hours');
+  if (satInput) satInput.oninput = () => { state.satHours = num(satInput.value, 0); save(); };
+  const sunInput = main.querySelector('#sun-hours');
+  if (sunInput) sunInput.oninput = () => { state.sunHours = num(sunInput.value, 0); save(); };
+  main.querySelectorAll('[data-people]').forEach(b => b.onclick = () => { state.people = Number(b.dataset.people); save(); render(); });
+
+  main.querySelectorAll('[data-done]').forEach(cb => cb.onchange = () => {
+    if (cb.checked) state.done[cb.dataset.done] = true; else delete state.done[cb.dataset.done];
+    save();
+    const key = cb.dataset.done;
+    const allKeys = Object.keys(state.done);
+    cb.closest('.tl-phase').classList.toggle('done', cb.checked);
+    const pctEl = document.querySelector('.result-hero .big');
+    const barEl = document.querySelector('.progress-bar i');
+    if (pctEl && barEl) {
+      const total = document.querySelectorAll('[data-done]').length;
+      const doneNow = document.querySelectorAll('[data-done]:checked').length;
+      const pct = total ? Math.round(doneNow/total*100) : 0;
+      pctEl.textContent = pct+'%';
+      barEl.style.width = pct+'%';
+    }
+  });
+  main.querySelectorAll('[data-mat]').forEach(cb => cb.onchange = () => {
+    if (cb.checked) state.matBought[cb.dataset.mat] = true; else delete state.matBought[cb.dataset.mat];
+    save();
+    const span = cb.nextElementSibling;
+    if (span) span.style.cssText = cb.checked ? 'text-decoration:line-through;color:var(--muted)' : '';
+  });
+
+  const goOrar = main.querySelector('[data-go-orar]'); if (goOrar) goOrar.onclick = () => goTab('orar');
+  const goAmbient = main.querySelectorAll('[data-go-ambient]'); goAmbient.forEach(b=>b.onclick = () => goTab('ambient'));
+  const printBtn = main.querySelector('[data-print]'); if (printBtn) printBtn.onclick = () => window.print();
+
   window.scrollTo({top:scrollY});
 }
 
+function renderHeaderPhoto(){
+  const el = document.getElementById('header-photo');
+  if (DATA.headerPhoto) el.innerHTML = `<img class="photo" src="${DATA.headerPhoto}" alt="">`;
+  else el.innerHTML = `<div class="photo-fallback"></div>`;
+}
+
 load();
+renderHeaderPhoto();
 render();
 })();
 </script>
