@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0b1a3a">
+<title>Váš komplet 3 průvodců — Fotografie Vyřešená</title>
+<style>
+:root{
+  --bg:#0b1a3a; --bg2:#10244d; --card:#13295a; --line:rgba(232,186,66,.28);
+  --ink:#ffffff; --muted:#c3cde3; --gold:#e8ba42; --gold2:#f6d57a; --ok:#58c98a; --paper:#fbf6ea;
+  --r:18px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:radial-gradient(1200px 600px at 50% -10%,#1a3472 0%,var(--bg) 60%) fixed;color:var(--ink);
+  font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:20px 16px 56px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.04em;font-size:13px;color:var(--gold2);text-transform:uppercase}
+.brand i{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--gold)}
+h1{font-size:clamp(28px,6vw,46px);line-height:1.08;margin:14px 0 8px;font-weight:800;letter-spacing:-.01em}
+h1 span{color:var(--gold)}
+.lead{color:var(--muted);margin:0 0 20px;max-width:640px}
+.hero{display:grid;gap:18px;align-items:center;margin:8px 0 26px}
+.hero img{width:100%;height:auto;border-radius:var(--r);border:1px solid var(--line);display:block}
+.progress{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:0 0 22px}
+.progress b{color:var(--gold2)}
+.bar{height:8px;border-radius:99px;background:rgba(255,255,255,.1);margin-top:8px;overflow:hidden}
+.bar>div{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width .35s ease}
+.grid{display:grid;gap:18px}
+.card{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}
+.card img{width:100%;height:auto;display:block;background:#0b1a3a}
+.body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
+.tag{align-self:flex-start;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#10244d;background:var(--gold);border-radius:99px;padding:4px 10px}
+.card h2{font-size:20px;line-height:1.2;margin:0}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:6px}
+.btn{appearance:none;border:0;cursor:pointer;text-decoration:none;text-align:center;font:inherit;font-weight:800;border-radius:12px;padding:12px 16px;min-height:46px;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn.primary{background:var(--gold);color:#10244d;flex:1 1 150px}
+.btn.primary:hover{background:var(--gold2)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);flex:1 1 110px}
+.btn.ghost:hover{background:rgba(255,255,255,.07)}
+.btn:focus-visible,.chk input:focus-visible+span{outline:3px solid var(--gold2);outline-offset:2px}
+.chk{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted);cursor:pointer;user-select:none;padding-top:4px}
+.chk input{position:absolute;opacity:0;width:1px;height:1px}
+.chk span{width:22px;height:22px;border-radius:7px;border:2px solid var(--gold);display:inline-flex;align-items:center;justify-content:center;flex:none;color:transparent;font-weight:900;font-size:14px}
+.chk input:checked+span{background:var(--ok);border-color:var(--ok);color:#06241a}
+.how{margin:26px 0 0;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.how h3{margin:0 0 6px;font-size:17px;color:var(--gold2)}
+.how ul{margin:0;padding-left:20px;color:var(--muted)}
+.how li{margin:4px 0}
+footer{margin-top:28px;color:var(--muted);font-size:13px;text-align:center}
+footer a{color:var(--gold2)}
+@media(min-width:760px){
+  .hero{grid-template-columns:1.1fr .9fr}
+  .grid{grid-template-columns:repeat(3,1fr)}
+}
+@media print{body{background:#fff;color:#000}.btns{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><i></i> Fotografie Vyřešená</div>
+  <section class="hero">
+    <div>
+      <h1>Váš komplet <span>3 průvodců</span></h1>
+      <p class="lead">Děkujeme! Všechno, co jste právě přidali, je tady na jednom místě. Stáhněte si PDF do telefonu nebo počítače — po stažení fungují i bez internetu.</p>
+      <div class="progress" aria-live="polite">
+        <div>Prostudováno: <b id="count">0</b> z 3</div>
+        <div class="bar"><div id="fill"></div></div>
+      </div>
+    </div>
+    <img src="img/balicek.webp" width="1000" height="1250" alt="Tři průvodci: Nákupní Průvodce, 40 Karet na Cesty a Vaše Fotky Ožijí" fetchpriority="high">
+  </section>
+
+  <section class="grid" aria-label="Vaše průvodce">
+    <article class="card" data-id="cesty">
+      <img src="img/cesty.webp" width="900" height="900" alt="Obálka: 40 Karet na Cesty" loading="lazy">
+      <div class="body">
+        <span class="tag">40 karet</span>
+        <h2>40 Karet na Cesty</h2>
+        <p>Stejný systém „Fotka podle scény“, jen pro cesty: pláž, sníh, západy slunce a krajina. Přesné nastavení, i když jste daleko od domova a nemáte čas zkoušet naslepo.</p>
+        <div class="btns">
+          <a class="btn primary" href="pdf/40-karet-na-cesty.pdf" download>Stáhnout PDF</a>
+          <a class="btn ghost" href="pdf/40-karet-na-cesty.pdf" target="_blank" rel="noopener">Otevřít</a>
+        </div>
+        <label class="chk"><input type="checkbox" data-check="cesty"><span aria-hidden="true">✓</span> Mám prostudováno</label>
+      </div>
+    </article>
+
+    <article class="card" data-id="nakupni">
+      <img src="img/nakupni.webp" width="700" height="1050" alt="Obálka: Nákupní Průvodce" loading="lazy">
+      <div class="body">
+        <span class="tag">15 karet</span>
+        <h2>Nákupní Průvodce: Co Opravdu Potřebujete</h2>
+        <p>Objektivy a vybavení pod 5 000 Kč, co opravdu zlepší vaše fotky (a co si klidně odpustit). Žádný tlak koupit víc — jen jasný seznam priorit podle toho, co fotíte.</p>
+        <div class="btns">
+          <a class="btn primary" href="pdf/nakupni-pruvodce.pdf" download>Stáhnout PDF</a>
+          <a class="btn ghost" href="pdf/nakupni-pruvodce.pdf" target="_blank" rel="noopener">Otevřít</a>
+        </div>
+        <label class="chk"><input type="checkbox" data-check="nakupni"><span aria-hidden="true">✓</span> Mám prostudováno</label>
+      </div>
+    </article>
+
+    <article class="card" data-id="video">
+      <img src="img/video.webp" width="700" height="1050" alt="Obálka: Vaše Fotky Ožijí" loading="lazy">
+      <div class="body">
+        <span class="tag">15 karet</span>
+        <h2>Vaše Fotky Ožijí: Video a Reels s Tím, Co Máte</h2>
+        <p>Stejný fotoaparát, žádné nové vybavení. Přesná nastavení a postup krok za krokem pro video a reels — stejný systém karet, tentokrát pro pohyblivý obraz.</p>
+        <div class="btns">
+          <a class="btn primary" href="pdf/vase-fotky-ozij.pdf" download>Stáhnout PDF</a>
+          <a class="btn ghost" href="pdf/vase-fotky-ozij.pdf" target="_blank" rel="noopener">Otevřít</a>
+        </div>
+        <label class="chk"><input type="checkbox" data-check="video"><span aria-hidden="true">✓</span> Mám prostudováno</label>
+      </div>
+    </article>
+  </section>
+
+  <section class="how">
+    <h3>Jak s nimi pracovat</h3>
+    <ul>
+      <li>Stáhněte si PDF do telefonu — karty máte pořád po ruce, i bez připojení.</li>
+      <li>Než vyrazíte fotit nebo natáčet, otevřete kartu, která sedí na vaši situaci.</li>
+      <li>Odškrtněte si, co už máte prostudováno. Značky se pamatují jen na tomto zařízení.</li>
+    </ul>
+  </section>
+
+  <footer>
+    Fotografie Vyřešená · Digitální PDF<br>
+    Potíže se stažením? Napište na <a href="mailto:digitalcustomerdesk@gmail.com">digitalcustomerdesk@gmail.com</a>
+  </footer>
+</div>
+<script>
+(function(){
+  var KEY="fv_balicek_hotovo_v1", state={}, boxes=document.querySelectorAll("[data-check]");
+  function load(){try{var s=localStorage.getItem(KEY);if(s){var o=JSON.parse(s);if(o&&typeof o==="object")state=o;}}catch(e){}}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+  function paint(){
+    var n=0;
+    boxes.forEach(function(b){var on=state[b.getAttribute("data-check")]===true;b.checked=on;if(on)n++;});
+    document.getElementById("count").textContent=n;
+    document.getElementById("fill").style.width=(n/3*100)+"%";
+  }
+  boxes.forEach(function(b){b.addEventListener("change",function(){state[b.getAttribute("data-check")]=b.checked;save();paint();});});
+  load();paint();
+})();
+</script>
+</body>
+</html>
